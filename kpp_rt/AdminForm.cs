@@ -110,5 +110,10 @@ LEFT JOIN ПерссональныеДанныеСотрудника ON Сотр
         {
 
         }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
