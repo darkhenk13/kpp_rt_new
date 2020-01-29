@@ -24,13 +24,10 @@ namespace kpp_rt
         private void button1_Click(object sender, EventArgs e)
         {
 
-            SotrudForm form = new SotrudForm();
-            this.Hide();
-            form.Show();
+            Class1 clas = new Class1();
 
-            /*
-            //Подключение к бд
-            SqlConnection conn = new SqlConnection(connectString);
+                   //Подключение к бд
+                   SqlConnection conn = new SqlConnection(connectString);
             SqlCommand comm = new SqlCommand();
             // конец подключения к бд
 
@@ -69,32 +66,99 @@ WHERE ПользователиПрограммы.login = '" + textBox1.Text + "'
             switch (_role)
             {
                 case "0":
+                    
 
                     break;
 
                 case "1": // Администратор
+
+                    
+
+                    Properties.Settings.Default.users = _login;
+                    Properties.Settings.Default.id = _id_users;
+                    Properties.Settings.Default.Save();
+
+                    clas.users_ychet("Вход в программу");
+
+
                     AdminForm admin = new AdminForm();                 
                     this.Hide();
                     admin.Show();
+
+                    
                     break;
 
                 case "2": // Оператор
+
+
+
+                    Properties.Settings.Default.users = _login;
+                    Properties.Settings.Default.id = _id_users;
+                    Properties.Settings.Default.Save();
+
+
+                    clas.users_ychet("Вход в пограмму");
+
+                    OperatorForm oper = new OperatorForm();
+                    this.Hide();
+                    oper.Show();
+
                     
+
+
                     break;
             }
-            */
+           
         }
+
+
+
+      
+
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Properties.Settings.Default.users =  "";
+            Properties.Settings.Default.id = "";
+            Properties.Settings.Default.Save();
+
+            // форма по центру
+            this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
+                (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
+
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+
+
+
+
+
+            // скрыть пароль
+            textBox2.UseSystemPasswordChar = true;
+
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            NewSotrudForm form = new NewSotrudForm();
-            this.Hide();
-            form.Show();
+            Environment.Exit(0);
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+                Environment.Exit(0);
+           
+           
+           
+        }
+
+
+       
+       
+
+
+
     }
 }

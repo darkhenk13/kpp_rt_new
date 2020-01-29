@@ -45,5 +45,26 @@ namespace kpp_rt.Сотрудники.Должность
 
 
         }
+
+        private void CreateDolzSotrudForm_Load(object sender, EventArgs e)
+        {
+            // форма по центру
+            this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
+                (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SotrudDolzForm form = new SotrudDolzForm();
+            this.Hide();
+            form.Show();
+        }
+
+        private void CreateDolzSotrudForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SotrudDolzForm form = new SotrudDolzForm();
+            this.Hide();
+            form.Show();
+        }
     }
 }

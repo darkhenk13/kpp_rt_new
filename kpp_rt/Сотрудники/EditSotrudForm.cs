@@ -23,5 +23,19 @@ namespace kpp_rt.Сотрудники
 
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SotrudForm form = new SotrudForm();
+            this.Hide();
+            form.Show();
+        }
+
+        private void EditSotrudForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SotrudForm form = new SotrudForm();
+            this.Hide();
+            form.Show();
+        }
     }
 }

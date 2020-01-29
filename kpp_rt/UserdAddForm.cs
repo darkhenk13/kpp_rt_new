@@ -26,5 +26,10 @@ namespace kpp_rt
         {
 
         }
+
+        private void UserdAddForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

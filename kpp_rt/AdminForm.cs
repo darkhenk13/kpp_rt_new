@@ -26,6 +26,21 @@ namespace kpp_rt
 
         private void AdminForm_Load(object sender, EventArgs e)
         {
+            // форма по центру
+            this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
+                (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
+
+
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            DataGridViewCellStyle style = dataGridView1.ColumnHeadersDefaultCellStyle;
+            style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.RowHeadersVisible = false; // поля с левой стороны!
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+
+
             SqlConnection connection = new SqlConnection(Form1.connectString);
             SqlCommand command = new SqlCommand();
             DataSet ds = new DataSet();
@@ -55,6 +70,45 @@ namespace kpp_rt
             dt1 = ds1.Tables[0];
             dataGridView2.DataSource = dt1;
             connection1.Close();
+
+
+            command1.Connection = connection1;
+            command1.CommandText = @"SELECT Log_users.ID_LogUsers AS [ID], Log_users.Время, Log_users.Дата, Log_users.Действие, ПерссональныеДанныеСотрудника.ФИО
+FROM Log_users
+LEFT JOIN ПользователиПрограммы ON Log_users.ID_Users = ПользователиПрограммы.ID_Users
+LEFT JOIN Сотрудники ON ПользователиПрограммы.ID_Users = Сотрудники.ID_Users
+LEFT JOIN ПерссональныеДанныеСотрудника ON Сотрудники.ID_ПерснСотрудника = ПерссональныеДанныеСотрудника.ID_ПерснСотрудника";
+            connection1.Open();
+            adap1.SelectCommand = command1;
+            adap1.Fill(ds1);
+            dt1 = ds1.Tables[0];
+            dataGridView3.DataSource = dt1;
+            connection1.Close();
+
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ComPortSettingsForm form = new ComPortSettingsForm();
+            this.Hide();
+            form.Show();
+            
+        }
+
+        private void AdminForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Class1 clas = new Class1();
+            clas.users_ychet("Выход из панели администратора");
+
+            Form1 form = new Form1();
+            this.Hide();
+            form.Show();
+           
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

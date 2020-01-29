@@ -112,6 +112,7 @@
             this.button1.TabIndex = 8;
             this.button1.Text = "Отмена";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -140,6 +141,7 @@
             this.Controls.Add(this.label1);
             this.Name = "EditSotrudForm";
             this.Text = "Редактирование сотрудника";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditSotrudForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
