@@ -115,5 +115,12 @@ LEFT JOIN ПерссональныеДанныеСотрудника ON Сотр
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            CreateAdminForm form = new CreateAdminForm();
+            this.Hide();
+            form.Show();
+        }
     }
 }

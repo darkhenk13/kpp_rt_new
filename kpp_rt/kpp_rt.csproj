@@ -74,6 +74,24 @@
     <Compile Include="ComPortSettingsForm.Designer.cs">
       <DependentUpon>ComPortSettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreateAdminForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateAdminForm.Designer.cs">
+      <DependentUpon>CreateAdminForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateSotrudAdminForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateSotrudAdminForm.Designer.cs">
+      <DependentUpon>CreateSotrudAdminForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditAdminForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditAdminForm.Designer.cs">
+      <DependentUpon>EditAdminForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -267,6 +285,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ComPortSettingsForm.resx">
       <DependentUpon>ComPortSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateAdminForm.resx">
+      <DependentUpon>CreateAdminForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateSotrudAdminForm.resx">
+      <DependentUpon>CreateSotrudAdminForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditAdminForm.resx">
+      <DependentUpon>EditAdminForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
