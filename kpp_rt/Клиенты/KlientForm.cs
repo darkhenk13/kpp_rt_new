@@ -159,6 +159,9 @@ JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_�
                 command3.ExecuteNonQuery();
                 connection3.Close();
 
+                Class1 clas = new Class1();
+                clas.users_ychet("Удаление нового сотрудника");
+
                 foreach (DataGridViewRow row in dataGridView1.SelectedRows)
                 {
                     dataGridView1.Rows.Remove(row);

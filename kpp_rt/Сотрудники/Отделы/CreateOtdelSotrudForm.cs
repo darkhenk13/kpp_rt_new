@@ -39,6 +39,8 @@ namespace kpp_rt.Сотрудники.Отделы
 
             MessageBox.Show("Новыый отдел в таблицу Отделы добавлена", "Добавление новой записи", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
+            Class1 clas = new Class1();
+            clas.users_ychet("Добавлене нового отдела");
 
             OtdelSotrudForm form = new OtdelSotrudForm();
             this.Hide();

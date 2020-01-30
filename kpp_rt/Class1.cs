@@ -28,7 +28,7 @@ namespace kpp_rt
 
 
             cmd.Parameters.Add("@Действие", SqlDbType.NVarChar);
-            cmd.Parameters["@Действие"].Value = "Вход в программу";
+            cmd.Parameters["@Действие"].Value = deist;
 
             cmd.Parameters.Add("@Время", SqlDbType.NVarChar);
             cmd.Parameters["@Время"].Value = dates;

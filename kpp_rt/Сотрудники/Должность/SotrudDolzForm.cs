@@ -132,6 +132,9 @@ namespace kpp_rt.Сотрудники.Должность
                 connection3.Close();
 
 
+                Class1 clas = new Class1();
+                clas.users_ychet("Удаление должности");
+
                 foreach (DataGridViewRow row in dataGridView1.SelectedRows)
                 {
                     dataGridView1.Rows.Remove(row);

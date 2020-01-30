@@ -129,7 +129,8 @@ namespace kpp_rt.Объект
                 command3.ExecuteNonQuery();
                 connection3.Close();
 
-                
+                Class1 clas = new Class1();
+                clas.users_ychet("Удаление объекта");
 
                 foreach (DataGridViewRow row in dataGridView1.SelectedRows)
                 {

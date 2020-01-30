@@ -23,6 +23,7 @@ namespace kpp_rt
         public string[] arr = new string[4];
         public string id_pers;
         public string id_sotr;
+        public string id_prav;
 
 
         private void CreateAdminForm_Load(object sender, EventArgs e)
@@ -92,8 +93,94 @@ namespace kpp_rt
             connection.Close();
 
 
+            if (comboBox1.Text != "Администратор")
+            { id_prav = "1"; }
+            else
+            { id_prav = "2"; }
+
+
         }
 
+        
+       
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string users_s = "";
+
+
+            serch_pers();
+            serch_sotrud();
+
+
+
+
+
+
+            SqlConnection conn = new SqlConnection(Form1.connectString);
+            SqlCommand cmd = new SqlCommand();
+
+
+            cmd.Connection = conn;
+            conn.Open();
+            cmd.CommandText = "SELECT login FROM ПользователиПрограммы WHERE login='" + textBox2.Text + "'";
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                users_s = reader[0].ToString();
+               
+
+            }
+            conn.Close();
+
+
+            if (textBox2.Text != users_s)
+            {
+
+
+
+                conn.Open(); //Устанавливаем соединение с базой данных.
+                cmd.Connection = conn;
+                cmd.CommandText = @"INSERT INTO [ПользователиПрограммы] (login, password, 
+		                                ID_Сотруднка, ID_ПравДоступа)
+                                        values (@login, @password, 
+		                                @ID_Сотруднка, @ID_ПравДоступа)";
+
+
+                cmd.Parameters.Add("@login", SqlDbType.NVarChar);
+                cmd.Parameters["@login"].Value = textBox2.Text;
+
+                cmd.Parameters.Add("@password", SqlDbType.NVarChar);
+                cmd.Parameters["@password"].Value = textBox3.Text;
+
+                cmd.Parameters.Add("@ID_Сотруднка", SqlDbType.Int);
+                cmd.Parameters["@ID_Сотруднка"].Value = id_sotr;
+
+                cmd.Parameters.Add("@ID_ПравДоступа", SqlDbType.Int);
+                cmd.Parameters["@ID_ПравДоступа"].Value = id_prav;
+
+
+
+
+
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Новый пользователь добавлен", "Добавление пользователя", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                // Close();
+                conn.Close();
+
+                Class1 clas = new Class1();
+                clas.users_ychet("Добавлене нового пользователя");
+
+                AdminForm form = new AdminForm();
+                this.Hide();
+                form.Show();
+            }
+            else
+            {
+                MessageBox.Show("Такой логин уже существует", "Добавление пользователя", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+
+        }
     }
 }

@@ -56,6 +56,8 @@ namespace kpp_rt.Объект
 
             MessageBox.Show("Новая запись добавлена!", "Добавление новой записи", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
+            Class1 clas = new Class1();
+            clas.users_ychet("Добавлене нового объекта");
 
             ObjectForm form = new ObjectForm();
             this.Hide();

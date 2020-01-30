@@ -120,6 +120,8 @@ namespace kpp_rt.Сотрудники.Отделы
                 command3.ExecuteNonQuery();
                 connection3.Close();
 
+                Class1 clas = new Class1();
+                clas.users_ychet("Удаление отдела");
 
                 foreach (DataGridViewRow row in dataGridView1.SelectedRows)
                 {

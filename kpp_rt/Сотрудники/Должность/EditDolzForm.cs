@@ -77,6 +77,9 @@ namespace kpp_rt.Сотрудники.Должность
 
             MessageBox.Show("Данные изменены!");
 
+            Class1 clas = new Class1();
+            clas.users_ychet("Добавлене изменение должности");
+
             SotrudDolzForm form = new SotrudDolzForm();
             this.Hide();
             form.Show();

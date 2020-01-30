@@ -38,9 +38,11 @@ namespace kpp_rt.Сотрудники.Должность
 
             MessageBox.Show("Новая должность в таблицу Должности добавлена", "Добавление новой записи", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
+            Class1 clas = new Class1();
+            clas.users_ychet("Добавлене новой должности");
 
             SotrudDolzForm form = new SotrudDolzForm();
-            this.Close();
+            this.Hide();
             form.Show();
 
 

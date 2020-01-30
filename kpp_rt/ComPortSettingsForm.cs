@@ -59,6 +59,10 @@ namespace kpp_rt
            
             Properties.Settings.Default.Save();
 
+
+            Class1 clas = new Class1();
+            clas.users_ychet("Применение настроек Com port");
+
         }
 
         private void ComPortSettingsForm_FormClosing(object sender, FormClosingEventArgs e)

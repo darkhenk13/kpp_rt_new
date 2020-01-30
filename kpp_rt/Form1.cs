@@ -143,6 +143,8 @@ WHERE ПользователиПрограммы.login = '" + textBox1.Text + "'
         private void button2_Click(object sender, EventArgs e)
         {
             Environment.Exit(0);
+
+            
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

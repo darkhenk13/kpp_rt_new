@@ -128,6 +128,10 @@ namespace kpp_rt
             cmd.ExecuteNonQuery();
             tran.Commit(); // Потвержение транзакции
 
+
+            Class1 clas = new Class1();
+            clas.users_ychet("Добавлене нового сотрудника");
+
             MessageBox.Show("Запись добавлена", "Добавление");
             SotrudForm form = new SotrudForm();
             this.Hide();

@@ -265,6 +265,8 @@ ORDER BY УчетПосещений.ID_УчетПосещений DESC
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
             doc_save();
+            Class1 clas = new Class1();
+            clas.users_ychet("Формирование отчета по сотрудникам");
         }
     }
 }

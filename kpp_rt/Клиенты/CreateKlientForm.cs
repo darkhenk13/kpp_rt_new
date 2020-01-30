@@ -88,6 +88,9 @@ namespace kpp_rt.Клиенты
             // Close();
             conn.Close();
 
+            Class1 clas = new Class1();
+            clas.users_ychet("Добавлене нового клиента");
+
             KlientForm form = new KlientForm();
             this.Hide();
             form.Show();

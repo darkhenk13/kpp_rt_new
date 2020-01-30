@@ -48,6 +48,10 @@ namespace kpp_rt.Сотрудники.Отделы
 
             MessageBox.Show("Данные изменены!");
 
+
+            Class1 clas = new Class1();
+            clas.users_ychet("Редактирование отдела");
+
             OtdelSotrudForm form = new OtdelSotrudForm();
             this.Hide();
             form.Show();

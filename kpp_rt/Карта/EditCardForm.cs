@@ -75,5 +75,11 @@ namespace kpp_rt.Карта
             form.Show();
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Class1 clas = new Class1();
+            clas.users_ychet("Изменение карты");
+        }
     }
 }

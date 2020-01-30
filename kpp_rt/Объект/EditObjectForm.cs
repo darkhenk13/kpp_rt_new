@@ -70,6 +70,9 @@ namespace kpp_rt.Объект
 
             MessageBox.Show("Данные изменены!");
 
+            Class1 clas = new Class1();
+            clas.users_ychet("Изменение объекта");
+
             ObjectForm form = new ObjectForm();
             this.Hide();
             form.Show();

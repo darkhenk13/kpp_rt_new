@@ -230,6 +230,11 @@ namespace kpp_rt.Карта
             // Close();
             conn.Close();
 
+            Class1 clas = new Class1();
+            clas.users_ychet("Добавлене новой карты");
+
+            
+
             CartForm form = new CartForm();
             this.Hide();
             form.Show();
