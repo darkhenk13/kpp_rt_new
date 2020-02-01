@@ -16,5 +16,24 @@ namespace kpp_rt
         {
             InitializeComponent();
         }
+
+        private void MestoKppForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AdminForm form = new AdminForm();
+            this.Hide();
+            form.Show();
+        }
+
+        private void MestoKppForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            AdminForm form = new AdminForm();
+            this.Hide();
+            form.Show();
+        }
     }
 }
