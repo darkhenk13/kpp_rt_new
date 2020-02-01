@@ -98,6 +98,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="MestoKppForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MestoKppForm.Designer.cs">
+      <DependentUpon>MestoKppForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Карта\CartForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -297,6 +303,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MestoKppForm.resx">
+      <DependentUpon>MestoKppForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Карта\CartForm.resx">
       <DependentUpon>CartForm.cs</DependentUpon>

@@ -94,9 +94,9 @@ namespace kpp_rt
 
 
             if (comboBox1.Text != "Администратор")
-            { id_prav = "1"; }
-            else
             { id_prav = "2"; }
+            else
+            { id_prav = "1"; }
 
 
         }

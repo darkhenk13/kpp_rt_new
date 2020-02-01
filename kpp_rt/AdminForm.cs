@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Data.SqlClient;
+using kpp_rt.Клиенты;
+using kpp_rt.Отчеты;
 
 namespace kpp_rt
 {
@@ -62,7 +64,11 @@ namespace kpp_rt
             DataTable dt = new DataTable();
 
             command.Connection = connection;
-            command.CommandText = @"SELECT пп.login AS [Логин], перс.ФИО AS [ФИО Сотрудника], перс.Дата_Рождения AS [Дата рождения], прав.Права_Доступа AS [Права Доступа]
+            command.CommandText = @"SELECT 
+пп.login AS [Логин], 
+перс.ФИО AS [ФИО Сотрудника], 
+перс.Дата_Рождения AS [Дата рождения],
+CASE WHEN прав.Права_Доступа='1' THEN 'Администратор' ELSE 'Оператор' END AS [Права Доступа]
 FROM ПользователиПрограммы пп, Сотрудники ст, ПерссональныеДанныеСотрудника перс, ПраваДоступа прав
 WHERE пп.ID_Сотруднка = ст.ID_Сотрудника
 AND ст.ID_ПерснСотрудника = перс.ID_ПерснСотрудника
@@ -81,7 +87,7 @@ AND пп.ID_ПравДоступа = прав.ID_ПравДоступа";
             DataTable dt1 = new DataTable();
 
             command1.Connection = connection1;
-            command1.CommandText = @"SELECT * FROM ПраваДоступа";
+            command1.CommandText = @"SELECT Права_Доступа AS [Права доступа] FROM ПраваДоступа";
             connection1.Open();
             adap1.SelectCommand = command1;
             adap1.Fill(ds1);
@@ -149,12 +155,36 @@ AND сот.ID_ПерснСотрудника = пдс.ID_ПерснСотруд�
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            MestoKppForm form = new MestoKppForm();
+            this.Hide();
+            form.Show();
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             CreateAdminForm form = new CreateAdminForm();
+            this.Hide();
+            form.Show();
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            SotrudForm form = new SotrudForm();
+            this.Hide();
+            form.Show();
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            KlientForm form = new KlientForm();
+            this.Hide();
+            form.Show();
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            OtchetForm form = new OtchetForm();
             this.Hide();
             form.Show();
         }
