@@ -195,8 +195,8 @@ JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_�
             search_status();
             SqlConnection conn = new SqlConnection(connectString);
             SqlCommand cmd = new SqlCommand();
-            //string dates = DateTime.Now.ToString("dd-MM-yyyy");
-            string dates = "25-12-2019";
+            string dates = DateTime.Now.ToString("dd-MM-yyyy");
+            
             string times = DateTime.Now.ToString("HH:mm:ss");
 
             if (status_klienta != "true")
