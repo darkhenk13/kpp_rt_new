@@ -60,12 +60,20 @@ namespace kpp_rt
             Properties.Settings.Default.Save();
 
 
+            MessageBox.Show("Настройки сохранены!", "Настройки");
             Class1 clas = new Class1();
             clas.users_ychet("Применение настроек Com port");
 
         }
 
         private void ComPortSettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            AdminForm form = new AdminForm();
+            this.Hide();
+            form.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
             AdminForm form = new AdminForm();
             this.Hide();

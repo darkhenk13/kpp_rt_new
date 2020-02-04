@@ -22,7 +22,8 @@ namespace kpp_rt.Отчеты
             InitializeComponent();
         }
 
-       
+
+        public delegate void InvokeDelegate();
 
         private void OtchetForm_Load(object sender, EventArgs e)
         {
@@ -39,12 +40,20 @@ namespace kpp_rt.Отчеты
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             datarid_pool();
-            string filepath = System.Environment.CurrentDirectory + "\\doc";
+
+            BeginInvoke(new InvokeDelegate(file_path));
+        }
+
+
+        public void file_path()
+        {
+
+            string filepath = System.Environment.CurrentDirectory + "\\doc\\";
             listBox1.Items.Clear();
             DirectoryInfo dinfo = new DirectoryInfo(@"" + filepath + "");
             FileInfo[] files = dinfo.GetFiles();
             foreach (FileInfo filenames in files)
-            {               
+            {
                 listBox1.Items.Add(filenames);
             }
         }
@@ -106,6 +115,11 @@ namespace kpp_rt.Отчеты
 
         public void datarid_pool()
         {
+            DateTime now = DateTime.Now;
+            DateTime first = new DateTime(now.Year, now.Month, 1); // первый день месяца
+            DateTime last = new DateTime(now.Year, now.Month + 1, 1).AddDays(-1); // последний день месяца
+
+
             SqlConnection connection = new SqlConnection(Form1.connectString);
             SqlCommand command = new SqlCommand();
             DataSet ds = new DataSet();
@@ -124,11 +138,12 @@ namespace kpp_rt.Отчеты
 	CASE WHEN УчетПосещений.Статус='true' THEN 'Вошел' ELSE 'Вышел' END AS [Статус],
 	ПерссональныеДанныеСотрудника.ФИО AS [ФИО Сотрудника]
 FROM УчетПосещений
-LEFT JOIN Карта ON УчетПосещений.ID_Карты = Карта.ID_Карты 
-LEFT JOIN Сотрудники ON Карта.ID_Сотрудника = Сотрудники.ID_Сотрудника 
-LEFT JOIN ПерссональныеДанныеСотрудника ON Сотрудники.ID_ПерснСотрудника = ПерссональныеДанныеСотрудника.ID_ПерснСотрудника 
-ORDER BY УчетПосещений.ID_УчетПосещений DESC
-";
+JOIN Карта ON УчетПосещений.ID_Карты = Карта.ID_Карты 
+JOIN Сотрудники ON Карта.ID_Сотрудника = Сотрудники.ID_Сотрудника 
+JOIN ПерссональныеДанныеСотрудника ON Сотрудники.ID_ПерснСотрудника = ПерссональныеДанныеСотрудника.ID_ПерснСотрудника
+WHERE УчетПосещений.Дата > '" + first + "' and УчетПосещений.Дата < '" + last + "'";
+            //ORDER BY УчетПосещений.ID_УчетПосещений DESC
+
             connection.Open();
             adap.SelectCommand = command;
             adap.Fill(ds);
@@ -156,7 +171,7 @@ ORDER BY УчетПосещений.ID_УчетПосещений DESC
             // первый параграф
             wordParag = wordDoc.Paragraphs.Add(Type.Missing);
             wordParag.Range.Font.Name = "Times New Roman";
-            wordParag.Range.Font.Size = 16;
+            wordParag.Range.Font.Size = 14;
             wordParag.Range.Font.Bold = 0;
             wordParag.Range.Text = "Отчёт о посещаемости сотрудников";
             wordParag.Range.Paragraphs.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
@@ -210,14 +225,14 @@ ORDER BY УчетПосещений.ID_УчетПосещений DESC
             wordDoc.Tables[1].Cell(1, 2).Range.Text = "Дата";
             wordDoc.Tables[1].Cell(1, 2).Column.Width = 80;
             wordDoc.Tables[1].Cell(1, 3).Range.Text = "Статус";
-            wordDoc.Tables[1].Cell(1, 4).Range.Text = "Карта";
-            wordDoc.Tables[1].Cell(1, 4).Column.Width = 55;
+            wordDoc.Tables[1].Cell(1, 4).Range.Text = "ФИО Сотрудника";
+            wordDoc.Tables[1].Cell(1, 4).Column.Width = 200;
       
             for (int i = 0; i < rows - 1; i++)
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    wordDoc.Tables[1].Cell(i + 2, j + 1).Range.Text = dataGridView1[j, i].Value.ToString();
+                    wordDoc.Tables[1].Cell(i + 2, j + 1).Range.Text = dataGridView1[j, i].Value.ToString();                
                 }
             }
 
@@ -265,8 +280,15 @@ ORDER BY УчетПосещений.ID_УчетПосещений DESC
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
             doc_save();
+            BeginInvoke(new InvokeDelegate(file_path));
             Class1 clas = new Class1();
             clas.users_ychet("Формирование отчета по сотрудникам");
+        }
+
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+            string bectest = System.Environment.CurrentDirectory + "\\doc";
+            Process.Start(bectest + "\\" + listBox1.Text);
         }
     }
 }

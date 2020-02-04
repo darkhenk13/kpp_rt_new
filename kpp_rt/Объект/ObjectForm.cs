@@ -116,11 +116,7 @@ namespace kpp_rt.Объект
                     Ut = reader[4].ToString();
                 }
                 connection.Close();
-                // конец ID Персонаьные данные клиента
-
-               
-
-                //конец ID клиента
+           
                 SqlConnection connection3 = new SqlConnection(connectString);
                 SqlCommand command3 = new SqlCommand();
                 command3.Connection = connection3;

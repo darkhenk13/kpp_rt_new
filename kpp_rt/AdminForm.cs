@@ -21,9 +21,9 @@ namespace kpp_rt
             InitializeComponent();
         }
 
-       string connectString = ConfigurationManager.ConnectionStrings["SqlBD"].ConnectionString;
+        string connectString = ConfigurationManager.ConnectionStrings["SqlBD"].ConnectionString;
 
-        
+
 
 
         private void AdminForm_Load(object sender, EventArgs e)
@@ -102,7 +102,7 @@ AND пп.ID_ПравДоступа = прав.ID_ПравДоступа";
 
 
 
-       private void table_3()
+        private void table_3()
         {
             SqlConnection connection1 = new SqlConnection(Form1.connectString);
             SqlCommand command1 = new SqlCommand();
@@ -134,7 +134,7 @@ AND сот.ID_ПерснСотрудника = пдс.ID_ПерснСотруд�
             ComPortSettingsForm form = new ComPortSettingsForm();
             this.Hide();
             form.Show();
-            
+
         }
 
         private void AdminForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -145,12 +145,22 @@ AND сот.ID_ПерснСотрудника = пдс.ID_ПерснСотруд�
             Form1 form = new Form1();
             this.Hide();
             form.Show();
-           
+
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            SqlConnection conn2 = new SqlConnection(Form1.connectString);
+            SqlCommand command2 = new SqlCommand();
 
+            command2.Connection = conn2;
+            conn2.Open();
+            command2.CommandText = @"TRUNCATE TABLE Users";
+
+            command2.ExecuteNonQuery();
+
+            conn2.Close();
+            MessageBox.Show("Таблицы учета пользовтелей очищена!");
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
@@ -188,5 +198,108 @@ AND сот.ID_ПерснСотрудника = пдс.ID_ПерснСотруд�
             this.Hide();
             form.Show();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string[] arr_del = new string[4];
+            string id_users = "";
+            string id_prav_dost = "";
+            string group;
+
+            for (int i = 0; i < 4; i++)
+            {
+                arr_del[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+            }
+
+
+           
+
+            DialogResult dialogResult = MessageBox.Show("Удалить Пользователя?", "Удалить", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                try
+                {
+
+                    SqlConnection connection = new SqlConnection(connectString);
+                    SqlCommand command = new SqlCommand();
+
+
+                    if (arr_del[3] == "Администратор")
+                    {
+                        command.Connection = connection;
+                        command.CommandText = @"SELECT ID_ПравДоступа, Права_Доступа FROM ПраваДоступа WHERE Права_Доступа='1'";
+                        connection.Open();
+
+                        SqlDataReader reader1 = command.ExecuteReader();
+                        while (reader1.Read())
+                        {
+                            id_prav_dost = reader1[0].ToString();
+                            string pp = reader1[1].ToString();
+                        }
+                        connection.Close();
+                    }
+                    else
+                    {
+                        command.Connection = connection;
+                        command.CommandText = @"SELECT ID_ПравДоступа, Права_Доступа FROM ПраваДоступа WHERE Права_Доступа='2'";
+                        connection.Open();
+
+                        SqlDataReader reader2 = command.ExecuteReader();
+                        while (reader2.Read())
+                        {
+                            id_prav_dost = reader2[0].ToString();
+                            string pp = reader2[1].ToString();
+                        }
+                        connection.Close();
+                    }
+
+
+                    command.Connection = connection;
+                    command.CommandText = "SELECT ID_Users, login, ID_ПравДоступа FROM ПользователиПрограммы WHERE login='" + arr_del[0] + "' AND ID_ПравДоступа='" + id_prav_dost + "'";
+                    connection.Open();
+
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        id_users = reader[0].ToString();
+                        string users = reader[1].ToString();
+                        string id_pravdostupa = reader[2].ToString();
+                    }
+                    connection.Close();
+
+                    command.Connection = connection;
+                    command.CommandText = @"DELETE FROM ПользователиПрограммы WHERE ID_Users='" + id_users + "'";
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+
+                    Class1 clas = new Class1();
+                    clas.users_ychet("Удаление пользователя программы");
+
+
+                    foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                    {
+                        dataGridView1.Rows.Remove(row);
+                    }
+
+                    MessageBox.Show("Пользователь удален", "Удалено");
+                }
+                catch
+                {
+                    MessageBox.Show("Невозможно удалить пользователя", "Внимание");
+                }
+
+            }
+            else
+            {
+
+            }
+        }
+
+       
+
+
     }
 }

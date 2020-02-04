@@ -170,8 +170,12 @@ namespace kpp_rt
 
             SqlConnection conn = new SqlConnection(Form1.connectString);
             SqlCommand cmd = new SqlCommand();
-            string dates = DateTime.Now.ToString("dd MM yyyy");
+            string dates = DateTime.Now.ToString("dd-MM-yyyy");
             string times = DateTime.Now.ToString("HH:mm:ss");
+
+            DateTime dt = DateTime.Now;
+
+           
 
             if (status_sotrud != "true")
             {
@@ -184,7 +188,8 @@ namespace kpp_rt
                 cmd.Parameters["@Время"].Value = times;
 
                 cmd.Parameters.Add("@Дата", SqlDbType.NVarChar);
-                cmd.Parameters["@Дата"].Value = dates;
+                cmd.Parameters["@Дата"].Value = "04.02.2020";
+                //cmd.Parameters["@Дата"].Value = dates;
 
                 cmd.Parameters.Add("@Статус", SqlDbType.NVarChar);
                 cmd.Parameters["@Статус"].Value = "true";
@@ -207,6 +212,7 @@ namespace kpp_rt
                 cmd.Parameters["@Время"].Value = times;
 
                 cmd.Parameters.Add("@Дата", SqlDbType.NVarChar);
+                //cmd.Parameters["@Дата"].Value = "04.02.2020";
                 cmd.Parameters["@Дата"].Value = dates;
 
                 cmd.Parameters.Add("@Статус", SqlDbType.NVarChar);
@@ -474,9 +480,36 @@ ORDER BY УчетПосещений.ID_УчетПосещений DESC
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
+            sport.Close();
             OtchetForm form = new OtchetForm();
             this.Hide();
             form.Show();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            SqlConnection conn2 = new SqlConnection(Form1.connectString);
+            SqlCommand command2 = new SqlCommand();
+
+            command2.Connection = conn2;
+            conn2.Open();
+            command2.CommandText = @"TRUNCATE TABLE УчетПосещений";
+
+            command2.ExecuteNonQuery();
+
+            conn2.Close();
+            MessageBox.Show("Таблицы учета пользовтелей очищена!");
+
+
+
+
+            //DateTime now = DateTime.Now;
+            //DateTime first = new DateTime(now.Year, now.Month, 1); // первый день месяца
+            //DateTime last = new DateTime(now.Year, now.Month + 1, 1).AddDays(-1); // последний день месяца
+
+
+
+
         }
     }
 
