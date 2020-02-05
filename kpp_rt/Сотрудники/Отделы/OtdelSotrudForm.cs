@@ -63,77 +63,84 @@ namespace kpp_rt.Сотрудники.Отделы
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 1; i++)
+            try
             {
-                arr[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+                for (int i = 0; i < 1; i++)
+                {
+                    arr[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+                }
+                EditOtdelForm form = new EditOtdelForm();
+                form.arr1 = arr;
+                this.Hide();
+                form.Show();
             }
-            EditOtdelForm form = new EditOtdelForm();
-            form.arr1 = arr;
-            this.Hide();
-            form.Show();
+            catch { MessageBox.Show("Ошибка"); }
         }
 
         public string[] arr = new string[1];
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 1; i++)
+            try
             {
-                arr[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
-            }
-            string id_dol = "";
-
-
-            DialogResult dialogResult = MessageBox.Show("Удалить Должность?", "Удалить", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-
-                /*
-                 CREATE TABLE Отделы(
-	ID_Отдела int IDENTITY (1,1),
-	Отдел nvarchar(100) NULL,
-	PRIMARY KEY (ID_Отдела)
-);*/
-                // получить ID Отдела
-                SqlConnection connection1 = new SqlConnection(Form1.connectString);
-                SqlCommand command1 = new SqlCommand();
-
-                command1.Connection = connection1;
-                connection1.Open();
-                command1.CommandText = "SELECT ID_Отдела, Отдел FROM Отделы WHERE Отдел='" + arr[0] + "'";
-
-                SqlDataReader reader1 = command1.ExecuteReader();
-
-                while (reader1.Read())
+                for (int i = 0; i < 1; i++)
                 {
-                    id_dol = reader1[0].ToString();
-                    string pers = reader1[1].ToString();
+                    arr[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+                }
+                string id_dol = "";
+
+
+                DialogResult dialogResult = MessageBox.Show("Удалить Должность?", "Удалить", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+
+                    /*
+                     CREATE TABLE Отделы(
+        ID_Отдела int IDENTITY (1,1),
+        Отдел nvarchar(100) NULL,
+        PRIMARY KEY (ID_Отдела)
+    );*/
+                    // получить ID Отдела
+                    SqlConnection connection1 = new SqlConnection(Form1.connectString);
+                    SqlCommand command1 = new SqlCommand();
+
+                    command1.Connection = connection1;
+                    connection1.Open();
+                    command1.CommandText = "SELECT ID_Отдела, Отдел FROM Отделы WHERE Отдел='" + arr[0] + "'";
+
+                    SqlDataReader reader1 = command1.ExecuteReader();
+
+                    while (reader1.Read())
+                    {
+                        id_dol = reader1[0].ToString();
+                        string pers = reader1[1].ToString();
+
+                    }
+                    connection1.Close();
+
+                    //конец ID клиента
+                    SqlConnection connection3 = new SqlConnection(connectString);
+                    SqlCommand command3 = new SqlCommand();
+                    command3.Connection = connection3;
+                    connection3.Open();
+                    command3.CommandText = @"DELETE FROM Должность WHERE ID_Должность='" + id_dol + "'";
+                    command3.ExecuteNonQuery();
+                    connection3.Close();
+
+                    Class1 clas = new Class1();
+                    clas.users_ychet("Удаление отдела");
+
+                    foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                    {
+                        dataGridView1.Rows.Remove(row);
+                    }
 
                 }
-                connection1.Close();
-
-                //конец ID клиента
-                SqlConnection connection3 = new SqlConnection(connectString);
-                SqlCommand command3 = new SqlCommand();
-                command3.Connection = connection3;
-                connection3.Open();
-                command3.CommandText = @"DELETE FROM Должность WHERE ID_Должность='" + id_dol + "'";
-                command3.ExecuteNonQuery();
-                connection3.Close();
-
-                Class1 clas = new Class1();
-                clas.users_ychet("Удаление отдела");
-
-                foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                else if (dialogResult == DialogResult.No)
                 {
-                    dataGridView1.Rows.Remove(row);
+                    //do something else
                 }
-
             }
-            else if (dialogResult == DialogResult.No)
-            {
-                //do something else
-            }
-
+            catch { MessageBox.Show("Ошибка"); }
 
 
         }

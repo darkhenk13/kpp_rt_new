@@ -11,6 +11,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using kpp_rt.Сотрудники.Должность;
 using kpp_rt.Сотрудники.Отделы;
+using kpp_rt.Сотрудники;
 
 namespace kpp_rt
 {
@@ -21,6 +22,8 @@ namespace kpp_rt
             InitializeComponent();
         }
 
+        public string[] arr = new string[6];
+        public string[] arr_del = new string[6];
         private void SotrudForm_Load(object sender, EventArgs e)
         {
             // форма по центру
@@ -87,12 +90,111 @@ JOIN Должность ON Сотрудники.ID_Должность = Долж
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            try
+            {
+                //Редактирование строки
+                for (int i = 0; i < 6; i++)
+                {
+                    arr[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+                }
+
+                EditSotrudForm form = new EditSotrudForm();
+                form.arr1 = arr;
+                this.Hide();
+                form.Show();
+            }
+            catch {
+                MessageBox.Show("Ошибка!");
+            }
 
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
+            for (int i = 0; i < 6; i++)
+            {
+                arr_del[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+            }
+
+            string id_pers = "";
+            string id_sotrud = "";
+
+            try
+            {
+                DialogResult dialogResult = MessageBox.Show("Удалить клиента?", "Удалить", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    // получить ID Персонаьные данные Сотрудника
+                    SqlConnection connection = new SqlConnection(Form1.connectString);
+                    SqlCommand command = new SqlCommand();
+
+                    command.Connection = connection;
+                    command.CommandText = "SELECT ID_ПерснСотрудника, ФИО, Номер_телефона, Дата_Рождения FROM ПерссональныеДанныеСотрудника WHERE ФИО='" + arr_del[1] + "' AND Номер_телефона='" + arr_del[2] + "' AND Дата_Рождения='" + arr_del[3] + "'";
+                    connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        id_pers = reader[0].ToString();
+                        string FIO = reader[1].ToString();
+                        string phone = reader[2].ToString();
+                        string Date_roz = reader[3].ToString();
+                    }
+                    connection.Close();
+                    // конец ID Персонаьные данные сотрудника
+
+                    // получить ID сотрудника
+                    SqlConnection connection1 = new SqlConnection(Form1.connectString);
+                    SqlCommand command1 = new SqlCommand();
+
+                    command1.Connection = connection1;
+                    connection1.Open();
+                    command1.CommandText = "SELECT ID_Сотрудника, ID_ПерснСотрудника, Дата_Регистрации_Сотрудника FROM Сотрудники WHERE  ID_ПерснСотрудника='" + id_pers + "' AND Дата_Регистрации_Сотрудника='" + arr_del[0] + "'";
+
+                    SqlDataReader reader1 = command1.ExecuteReader();
+
+                    while (reader1.Read())
+                    {
+                        id_sotrud = reader1[0].ToString();
+                        string n1 = reader1[1].ToString();
+                        string n2 = reader1[2].ToString();
+
+                    }
+                    connection1.Close();
+
+                    //конец ID клиента
+                    SqlConnection connection3 = new SqlConnection(Form1.connectString);
+                    SqlCommand command3 = new SqlCommand();
+                    command3.Connection = connection3;
+                    connection3.Open();
+                    command3.CommandText = @"DELETE FROM Сотрудники WHERE ID_Сотрудника='" + id_sotrud + "'";
+                    command3.ExecuteNonQuery();
+                    connection3.Close();
+
+                    command3.Connection = connection3;
+                    command3.CommandText = @"DELETE FROM ПерссональныеДанныеСотрудника WHERE ID_ПерснСотрудника='" + id_pers + "'";
+                    connection3.Open();
+                    command3.ExecuteNonQuery();
+                    connection3.Close();
+
+                    Class1 clas = new Class1();
+                    clas.users_ychet("Удаление нового сотрудника");
+
+                    foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                    {
+                        dataGridView1.Rows.Remove(row);
+                    }
+                }
+            }
+            catch
+            {
+
+                MessageBox.Show("Запись связана", "Невозможно удалить!");
+            }
+            }
+
 
         }
     }
-}
+

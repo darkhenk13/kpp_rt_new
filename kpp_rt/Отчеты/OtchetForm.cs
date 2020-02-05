@@ -279,16 +279,27 @@ WHERE УчетПосещений.Дата > '" + first + "' and УчетПосе
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
-            doc_save();
-            BeginInvoke(new InvokeDelegate(file_path));
-            Class1 clas = new Class1();
-            clas.users_ychet("Формирование отчета по сотрудникам");
+            try
+            {
+
+
+                doc_save();
+                BeginInvoke(new InvokeDelegate(file_path));
+                Class1 clas = new Class1();
+                clas.users_ychet("Формирование отчета по сотрудникам");
+            }
+            catch { MessageBox.Show("Ошибка"); }
         }
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
             string bectest = System.Environment.CurrentDirectory + "\\doc";
             Process.Start(bectest + "\\" + listBox1.Text);
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

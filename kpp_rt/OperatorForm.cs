@@ -42,7 +42,9 @@ namespace kpp_rt
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
 
-            
+            //toolStripMenuItem2.Visible = false;
+
+
             start_comport();
             BeginInvoke(new InvokeDelegate(InvokeMethod));
 

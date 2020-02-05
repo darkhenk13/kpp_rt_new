@@ -67,79 +67,92 @@ namespace kpp_rt
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int hack = 0;
-            int id_otdel = 0;
-            int id_dolz = 0;
+            try
+            {
+                if (textBox1.Text.Equals("") || maskedTextBox2.Text.Equals("") || maskedTextBox1.Text.Equals("") || comboBox1.Text.Equals("") || comboBox2.Text.Equals("") )
+               {
+                    MessageBox.Show("Заполните все поля!", "Ошибка");
+                }
+                else { 
+                    int hack = 0;
+                    int id_otdel = 0;
+                    int id_dolz = 0;
 
 
-            // Должность
+                    // Должность
 
-            dolz_s(out id_dolz);
-
-
-
-            // Должность конец
-            otdel_s(out id_otdel);
-            // Отдел
-
-            SqlConnection conn = new SqlConnection(connectString);
-            SqlCommand command = new SqlCommand();
-
-            
-            conn.Open();
-            
-            SqlTransaction tran = conn.BeginTransaction();
-            
-            //conn.Open(); //Устанавливаем соединение с базой данных.
-            //cmd.Connection = conn;
-            SqlCommand cmd = conn.CreateCommand();
-            cmd.Transaction = tran;
-
-            cmd.CommandText = @"INSERT INTO [ПерссональныеДанныеСотрудника] (ФИО, Номер_телефона, Дата_Рождения) values (@ФИО, @Номер_телефона, @Дата_Рождения);SELECT SCOPE_IDENTITY();";
-            
-            cmd.Parameters.Add("@ФИО", SqlDbType.NVarChar);
-            cmd.Parameters["@ФИО"].Value = textBox1.Text;
-
-            cmd.Parameters.Add("@Номер_телефона", SqlDbType.NVarChar);
-            cmd.Parameters["@Номер_телефона"].Value = maskedTextBox2.Text;
-
-            cmd.Parameters.Add("@Дата_Рождения", SqlDbType.NVarChar);
-            cmd.Parameters["@Дата_Рождения"].Value = maskedTextBox1.Text;
-            
-            cmd.ExecuteNonQuery();
-            cmd.CommandText = "SELECT @@IDENTITY";
-            int lastId = Convert.ToInt32(cmd.ExecuteScalar());
+                    dolz_s(out id_dolz);
 
 
-            cmd.CommandText = @"INSERT INTO [Сотрудники] (ID_Должность, ID_Отдела, ID_ПерснСотрудника, Дата_Регистрации_Сотрудника) values (@ID_Должность, @ID_Отдела, @ID_ПерснСотрудника, @Дата_Регистрации_Сотрудника)";
-            
-            cmd.Parameters.Add("@ID_Должность", SqlDbType.Int);
-            cmd.Parameters["@ID_Должность"].Value = id_dolz;
 
-            cmd.Parameters.Add("@ID_Отдела", SqlDbType.Int);
-            cmd.Parameters["@ID_Отдела"].Value = id_otdel;
+                    // Должность конец
+                    otdel_s(out id_otdel);
+                    // Отдел
 
-            cmd.Parameters.Add("@ID_ПерснСотрудника", SqlDbType.Int);
-            cmd.Parameters["@ID_ПерснСотрудника"].Value = lastId;
-
-            cmd.Parameters.Add("@Дата_Регистрации_Сотрудника", SqlDbType.NVarChar);
-            cmd.Parameters["@Дата_Регистрации_Сотрудника"].Value = DateTime.Now.ToString("dd MMMM yyyy | HH:mm:ss");
-            
-            cmd.ExecuteNonQuery();
-            tran.Commit(); // Потвержение транзакции
+                    SqlConnection conn = new SqlConnection(connectString);
+                    SqlCommand command = new SqlCommand();
 
 
-            Class1 clas = new Class1();
-            clas.users_ychet("Добавлене нового сотрудника");
+                    conn.Open();
 
-            MessageBox.Show("Запись добавлена", "Добавление");
-            SotrudForm form = new SotrudForm();
-            this.Hide();
-            form.Show();
-            //conn.Close();
+                    SqlTransaction tran = conn.BeginTransaction();
 
+                    //conn.Open(); //Устанавливаем соединение с базой данных.
+                    //cmd.Connection = conn;
+                    SqlCommand cmd = conn.CreateCommand();
+                    cmd.Transaction = tran;
+
+                    cmd.CommandText = @"INSERT INTO [ПерссональныеДанныеСотрудника] (ФИО, Номер_телефона, Дата_Рождения) values (@ФИО, @Номер_телефона, @Дата_Рождения);SELECT SCOPE_IDENTITY();";
+
+                    cmd.Parameters.Add("@ФИО", SqlDbType.NVarChar);
+                    cmd.Parameters["@ФИО"].Value = textBox1.Text;
+
+                    cmd.Parameters.Add("@Номер_телефона", SqlDbType.NVarChar);
+                    cmd.Parameters["@Номер_телефона"].Value = maskedTextBox2.Text;
+
+                    cmd.Parameters.Add("@Дата_Рождения", SqlDbType.NVarChar);
+                    cmd.Parameters["@Дата_Рождения"].Value = maskedTextBox1.Text;
+
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "SELECT @@IDENTITY";
+                    int lastId = Convert.ToInt32(cmd.ExecuteScalar());
+
+
+                    cmd.CommandText = @"INSERT INTO [Сотрудники] (ID_Должность, ID_Отдела, ID_ПерснСотрудника, Дата_Регистрации_Сотрудника) values (@ID_Должность, @ID_Отдела, @ID_ПерснСотрудника, @Дата_Регистрации_Сотрудника)";
+
+                    cmd.Parameters.Add("@ID_Должность", SqlDbType.Int);
+                    cmd.Parameters["@ID_Должность"].Value = id_dolz;
+
+                    cmd.Parameters.Add("@ID_Отдела", SqlDbType.Int);
+                    cmd.Parameters["@ID_Отдела"].Value = id_otdel;
+
+                    cmd.Parameters.Add("@ID_ПерснСотрудника", SqlDbType.Int);
+                    cmd.Parameters["@ID_ПерснСотрудника"].Value = lastId;
+
+                    cmd.Parameters.Add("@Дата_Регистрации_Сотрудника", SqlDbType.NVarChar);
+                    cmd.Parameters["@Дата_Регистрации_Сотрудника"].Value = DateTime.Now.ToString("dd MMMM yyyy | HH:mm:ss");
+
+                    cmd.ExecuteNonQuery();
+                    tran.Commit(); // Потвержение транзакции
+
+
+                    Class1 clas = new Class1();
+                    clas.users_ychet("Добавлене нового сотрудника");
+
+                    MessageBox.Show("Запись добавлена", "Добавление");
+                    SotrudForm form = new SotrudForm();
+                    this.Hide();
+                    form.Show();
+                    //conn.Close();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка","Ошибка");
+            }
 
         }
+
 
         
 

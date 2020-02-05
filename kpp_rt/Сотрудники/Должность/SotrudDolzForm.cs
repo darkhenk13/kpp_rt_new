@@ -65,16 +65,18 @@ namespace kpp_rt.Сотрудники.Должность
         public string[] arr_DEL = new string[1];
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            
-            //Редактирование строки
-            for (int i = 0; i < 1; i++)
-            {
-                arr[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+            try
+            {             //Редактирование строки
+                for (int i = 0; i < 1; i++)
+                {
+                    arr[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+                }
+                EditDolzForm form = new EditDolzForm();
+                form.arr1 = arr;
+                this.Hide();
+                form.Show();
             }
-            EditDolzForm form = new EditDolzForm();
-            form.arr1 = arr;
-            this.Hide();
-            form.Show();
+            catch { MessageBox.Show("Ошибка"); }
 
         }
 
@@ -87,64 +89,70 @@ namespace kpp_rt.Сотрудники.Должность
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 1; i++)
-            {
-                arr_DEL[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
-            }
-            string id_dol = "";
-
-
-            DialogResult dialogResult = MessageBox.Show("Удалить Должность?", "Удалить", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
+            try
             {
 
-                /*CREATE TABLE Должность(
-	ID_Должность int IDENTITY (1,1),
-	Должность nvarchar(100) NULL,
-	PRIMARY KEY (ID_Должность)
-);*/
 
-                // получить ID Должности
-                SqlConnection connection1 = new SqlConnection(Form1.connectString);
-                SqlCommand command1 = new SqlCommand();
-
-                command1.Connection = connection1;
-                connection1.Open();
-                command1.CommandText = "SELECT ID_Должность, Должность FROM Должность WHERE Должность='" + arr_DEL[0] + "'";
-
-                SqlDataReader reader1 = command1.ExecuteReader();
-
-                while (reader1.Read())
+                for (int i = 0; i < 1; i++)
                 {
-                    id_dol = reader1[0].ToString();
-                    string pers = reader1[1].ToString();
-                    
+                    arr_DEL[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
                 }
-                connection1.Close();
-
-                //конец ID клиента
-                SqlConnection connection3 = new SqlConnection(connectString);
-                SqlCommand command3 = new SqlCommand();
-                command3.Connection = connection3;
-                connection3.Open();
-                command3.CommandText = @"DELETE FROM Должность WHERE ID_Должность='" + id_dol + "'";
-                command3.ExecuteNonQuery();
-                connection3.Close();
+                string id_dol = "";
 
 
-                Class1 clas = new Class1();
-                clas.users_ychet("Удаление должности");
-
-                foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                DialogResult dialogResult = MessageBox.Show("Удалить Должность?", "Удалить", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
                 {
-                    dataGridView1.Rows.Remove(row);
-                }
 
+                    /*CREATE TABLE Должность(
+        ID_Должность int IDENTITY (1,1),
+        Должность nvarchar(100) NULL,
+        PRIMARY KEY (ID_Должность)
+    );*/
+
+                    // получить ID Должности
+                    SqlConnection connection1 = new SqlConnection(Form1.connectString);
+                    SqlCommand command1 = new SqlCommand();
+
+                    command1.Connection = connection1;
+                    connection1.Open();
+                    command1.CommandText = "SELECT ID_Должность, Должность FROM Должность WHERE Должность='" + arr_DEL[0] + "'";
+
+                    SqlDataReader reader1 = command1.ExecuteReader();
+
+                    while (reader1.Read())
+                    {
+                        id_dol = reader1[0].ToString();
+                        string pers = reader1[1].ToString();
+
+                    }
+                    connection1.Close();
+
+                    //конец ID клиента
+                    SqlConnection connection3 = new SqlConnection(connectString);
+                    SqlCommand command3 = new SqlCommand();
+                    command3.Connection = connection3;
+                    connection3.Open();
+                    command3.CommandText = @"DELETE FROM Должность WHERE ID_Должность='" + id_dol + "'";
+                    command3.ExecuteNonQuery();
+                    connection3.Close();
+
+
+                    Class1 clas = new Class1();
+                    clas.users_ychet("Удаление должности");
+
+                    foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                    {
+                        dataGridView1.Rows.Remove(row);
+                    }
+
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do something else
+                }
             }
-            else if (dialogResult == DialogResult.No)
-            {
-                //do something else
-            }
+            catch { MessageBox.Show("Ошибка"); }
         }
     }
 }

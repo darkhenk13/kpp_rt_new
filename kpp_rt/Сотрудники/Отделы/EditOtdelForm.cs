@@ -38,23 +38,36 @@ namespace kpp_rt.Сотрудники.Отделы
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SqlConnection connection1 = new SqlConnection(Form1.connectString);
-            SqlCommand command1 = new SqlCommand();
-            command1.Connection = connection1;
-            command1.CommandText = @"UPDATE Отделы SET Отдел='" + textBox1.Text + "'  WHERE ID_Отдела=" + id_otdel + "";
-            connection1.Open();
-            command1.ExecuteNonQuery();
-            connection1.Close();
+            try
+            {
 
-            MessageBox.Show("Данные изменены!");
+                if (textBox1.Text.Equals(""))
+                {
+                    MessageBox.Show("Заполните поле","Ошибка");
+                }
+                else
+                {
+                    SqlConnection connection1 = new SqlConnection(Form1.connectString);
+                    SqlCommand command1 = new SqlCommand();
+                    command1.Connection = connection1;
+                    command1.CommandText = @"UPDATE Отделы SET Отдел='" + textBox1.Text + "'  WHERE ID_Отдела=" + id_otdel + "";
+                    connection1.Open();
+                    command1.ExecuteNonQuery();
+                    connection1.Close();
+
+                    MessageBox.Show("Данные изменены!");
 
 
-            Class1 clas = new Class1();
-            clas.users_ychet("Редактирование отдела");
+                    Class1 clas = new Class1();
+                    clas.users_ychet("Редактирование отдела");
 
-            OtdelSotrudForm form = new OtdelSotrudForm();
-            this.Hide();
-            form.Show();
+                    OtdelSotrudForm form = new OtdelSotrudForm();
+                    this.Hide();
+                    form.Show();
+
+                }
+            }
+            catch { MessageBox.Show("Ошибка"); }
         }
 
         private void EditOtdelForm_Load(object sender, EventArgs e)
