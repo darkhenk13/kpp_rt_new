@@ -22,7 +22,7 @@ namespace kpp_rt
         }
 
         string connectString = ConfigurationManager.ConnectionStrings["SqlBD"].ConnectionString;
-
+        public string[] arr_del = new string[4];
 
 
 
@@ -201,7 +201,7 @@ AND сот.ID_ПерснСотрудника = пдс.ID_ПерснСотруд�
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string[] arr_del = new string[4];
+            
             string id_users = "";
             string id_prav_dost = "";
             string group;
@@ -298,8 +298,19 @@ AND сот.ID_ПерснСотрудника = пдс.ID_ПерснСотруд�
             }
         }
 
-       
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            for (int i = 0; i < 4; i++)
+            {
+                arr_del[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+            }
 
 
+            EditAdminForm form = new EditAdminForm();
+            form.arr_del1 = arr_del;
+            this.Hide();
+            form.Show();
+        }
     }
 }

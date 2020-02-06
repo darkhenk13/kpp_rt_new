@@ -67,6 +67,12 @@
     <Compile Include="AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdminMestoKppCreateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminMestoKppCreateForm.Designer.cs">
+      <DependentUpon>AdminMestoKppCreateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BlockForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +115,12 @@
     </Compile>
     <Compile Include="EditAdminForm.Designer.cs">
       <DependentUpon>EditAdminForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditUserAdminForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditUserAdminForm.Designer.cs">
+      <DependentUpon>EditUserAdminForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -331,6 +343,9 @@
     <EmbeddedResource Include="AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AdminMestoKppCreateForm.resx">
+      <DependentUpon>AdminMestoKppCreateForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BlockForm.resx">
       <DependentUpon>BlockForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -351,6 +366,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditAdminForm.resx">
       <DependentUpon>EditAdminForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditUserAdminForm.resx">
+      <DependentUpon>EditUserAdminForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

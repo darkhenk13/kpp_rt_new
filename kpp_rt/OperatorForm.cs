@@ -461,6 +461,7 @@ ORDER BY УчетПосещений.ID_УчетПосещений DESC
 
         private void toolStripMenuItem8_Click(object sender, EventArgs e)
         {
+            sport.Close();
             YrDostupForm form = new YrDostupForm();
             this.Hide();
             form.Show();

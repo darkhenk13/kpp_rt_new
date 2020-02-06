@@ -78,7 +78,16 @@ namespace kpp_rt.Уровень_доступа_Карт
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-         
+            //Редактирование строки
+            for (int i = 0; i < 8; i++)
+            {
+                arr[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+            }
+
+            EditYdForm form = new EditYdForm();
+            form.arr1 = arr;
+            this.Hide();
+            form.Show();
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)

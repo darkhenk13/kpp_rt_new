@@ -130,5 +130,41 @@ namespace kpp_rt.Properties {
                 this["id"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string id_object {
+            get {
+                return ((string)(this["id_object"]));
+            }
+            set {
+                this["id_object"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string object_name {
+            get {
+                return ((string)(this["object_name"]));
+            }
+            set {
+                this["object_name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string status_comport {
+            get {
+                return ((string)(this["status_comport"]));
+            }
+            set {
+                this["status_comport"] = value;
+            }
+        }
     }
 }
