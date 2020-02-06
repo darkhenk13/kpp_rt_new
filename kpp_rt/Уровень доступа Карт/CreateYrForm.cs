@@ -33,11 +33,15 @@ namespace kpp_rt.Уровень_доступа_Карт
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
                 (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
 
+            comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 
             status_form();
             search_id_object();
             //Город, Улица, Здание, Этаж 
 
+            textBox1.Enabled = false;
+            textBox3.Enabled = false;
 
             textBox3.Text = object_table[0] + " " + object_table[1] + " " + object_table[2] + " " + object_table[3];
         }
@@ -171,104 +175,114 @@ namespace kpp_rt.Уровень_доступа_Карт
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int dopusk;
-            if (comboBox1.Text != "Да")
+            try
             {
-                dopusk = 0;
-            }
-            else
-            {
-                dopusk = 1;
-            }
+                if (textBox1.Text.Equals("") || textBox3.Text.Equals("") || comboBox1.Text.Equals("") || comboBox2.Text.Equals(""))
+                {
+                    MessageBox.Show("Не все поля заполнены", "Ошибка");
+                }
+                else
+                {
+                    int dopusk;
+                    if (comboBox1.Text != "Да")
+                    {
+                        dopusk = 0;
+                    }
+                    else
+                    {
+                        dopusk = 1;
+                    }
 
 
-            if (radioButton1.Checked == true)
-            {
+                    if (radioButton1.Checked == true)
+                    {
 
-                id_client_search();
-                YrDostupForm form = new YrDostupForm();
-                SqlConnection conn = new SqlConnection(Form1.connectString);
-                SqlCommand cmd = new SqlCommand();
-                conn.Open(); //Устанавливаем соединение с базой данных.
-                cmd.Connection = conn;
-                cmd.CommandText = @"INSERT INTO [УровеньДоступа] (ID_Объекта, 
+                        id_client_search();
+                        YrDostupForm form = new YrDostupForm();
+                        SqlConnection conn = new SqlConnection(Form1.connectString);
+                        SqlCommand cmd = new SqlCommand();
+                        conn.Open(); //Устанавливаем соединение с базой данных.
+                        cmd.Connection = conn;
+                        cmd.CommandText = @"INSERT INTO [УровеньДоступа] (ID_Объекта, 
                                  ID_Клиента, Допуск, Этаж)
                                         values (@ID_Объекта, 
                                  @ID_Клиента, @Допуск, @Этаж)";
 
 
-                cmd.Parameters.Add("@ID_Объекта", SqlDbType.Int);
-                cmd.Parameters["@ID_Объекта"].Value = id_object;
+                        cmd.Parameters.Add("@ID_Объекта", SqlDbType.Int);
+                        cmd.Parameters["@ID_Объекта"].Value = id_object;
 
-                cmd.Parameters.Add("@ID_Клиента", SqlDbType.Int);
-                cmd.Parameters["@ID_Клиента"].Value = id_clienta;
+                        cmd.Parameters.Add("@ID_Клиента", SqlDbType.Int);
+                        cmd.Parameters["@ID_Клиента"].Value = id_clienta;
 
-                cmd.Parameters.Add("@Допуск", SqlDbType.Int);
-                cmd.Parameters["@Допуск"].Value = dopusk;
+                        cmd.Parameters.Add("@Допуск", SqlDbType.Int);
+                        cmd.Parameters["@Допуск"].Value = dopusk;
 
-                cmd.Parameters.Add("@Этаж", SqlDbType.NVarChar);
-                cmd.Parameters["@Этаж"].Value = comboBox2.Text;
-
-
+                        cmd.Parameters.Add("@Этаж", SqlDbType.NVarChar);
+                        cmd.Parameters["@Этаж"].Value = comboBox2.Text;
 
 
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Новая карта создана", "Добавление карты", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                // Close();
-                conn.Close();
-
-                Class1 clas = new Class1();
-                clas.users_ychet("Добавлене");
-
-                this.Hide();
-                form.Show();
-            }
-            else
-            {
-
-                id_sotrudnik_search();
 
 
-                YrDostupForm form = new YrDostupForm();
-                SqlConnection conn = new SqlConnection(Form1.connectString);
-                SqlCommand cmd = new SqlCommand();
-                conn.Open(); //Устанавливаем соединение с базой данных.
-                cmd.Connection = conn;
-                cmd.CommandText = @"INSERT INTO [УровеньДоступа] (ID_Объекта, 
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Новая карта создана", "Добавление карты", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        // Close();
+                        conn.Close();
+
+                        Class1 clas = new Class1();
+                        clas.users_ychet("Добавлене");
+
+                        this.Hide();
+                        form.Show();
+                    }
+                    else
+                    {
+
+                        id_sotrudnik_search();
+
+
+                        YrDostupForm form = new YrDostupForm();
+                        SqlConnection conn = new SqlConnection(Form1.connectString);
+                        SqlCommand cmd = new SqlCommand();
+                        conn.Open(); //Устанавливаем соединение с базой данных.
+                        cmd.Connection = conn;
+                        cmd.CommandText = @"INSERT INTO [УровеньДоступа] (ID_Объекта, 
                                  ID_Карты, Допуск, Этаж)
                                         values (@ID_Объекта, 
                                  @ID_Карты, @Допуск, @Этаж)";
 
 
-                cmd.Parameters.Add("@ID_Объекта", SqlDbType.Int);
-                cmd.Parameters["@ID_Объекта"].Value = id_object;
+                        cmd.Parameters.Add("@ID_Объекта", SqlDbType.Int);
+                        cmd.Parameters["@ID_Объекта"].Value = id_object;
 
-                cmd.Parameters.Add("@ID_Карты", SqlDbType.Int);
-                cmd.Parameters["@ID_Карты"].Value = id_card;
+                        cmd.Parameters.Add("@ID_Карты", SqlDbType.Int);
+                        cmd.Parameters["@ID_Карты"].Value = id_card;
 
-                cmd.Parameters.Add("@Допуск", SqlDbType.Int);
-                cmd.Parameters["@Допуск"].Value = dopusk;
+                        cmd.Parameters.Add("@Допуск", SqlDbType.Int);
+                        cmd.Parameters["@Допуск"].Value = dopusk;
 
-                cmd.Parameters.Add("@Этаж", SqlDbType.NVarChar);
-                cmd.Parameters["@Этаж"].Value = comboBox2.Text;
-
-
+                        cmd.Parameters.Add("@Этаж", SqlDbType.NVarChar);
+                        cmd.Parameters["@Этаж"].Value = comboBox2.Text;
 
 
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Новая карта создана", "Добавление карты", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                // Close();
-                conn.Close();
-
-                Class1 clas = new Class1();
-                clas.users_ychet("Добавлене");
 
 
-                this.Hide();
-                form.Show();
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Новая карта создана", "Добавление карты", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        // Close();
+                        conn.Close();
+
+                        Class1 clas = new Class1();
+                        clas.users_ychet("Добавлене");
+
+
+                        this.Hide();
+                        form.Show();
+                    }
+
+                }
             }
-            
-
+            catch { MessageBox.Show("Ошибка"); }
         }
 
         //Поиск Клиента

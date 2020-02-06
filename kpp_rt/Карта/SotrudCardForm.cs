@@ -20,7 +20,10 @@ namespace kpp_rt.Карта
         }
 
         public bool check1;
+        public int k1;
+        public int fm;
         public string[] new_sotrud = new string[4];
+        public string[] arr = new string[8];
 
         private void SotrudCardForm_Load(object sender, EventArgs e)
         {
@@ -66,13 +69,29 @@ JOIN Должность ON Сотрудники.ID_Должность = Долж
                 new_sotrud[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
             }
 
-            CreateCardForm cr = new CreateCardForm();
-            cr.new_sotrud1 = new_sotrud;
-            //cr.new_client1 = new_client;
-            
-            cr.check = check1;
-            this.Hide();
-            cr.Show();
+
+            if (fm == 1)
+            {
+                k1 = 1;
+                EditCardForm form = new EditCardForm();
+                form.arr1 = arr;
+                form.sotrud_arr = new_sotrud;
+                form.k = k1;
+                this.Hide();
+                form.Show();
+            }
+            else
+            {
+                
+
+                CreateCardForm cr = new CreateCardForm();
+                cr.new_sotrud1 = new_sotrud;
+                //cr.new_client1 = new_client;
+
+                cr.check = check1;
+                this.Hide();
+                cr.Show();
+            }
         }
 
         private void SotrudCardForm_FormClosing(object sender, FormClosingEventArgs e)

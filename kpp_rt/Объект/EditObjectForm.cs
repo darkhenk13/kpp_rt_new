@@ -80,5 +80,19 @@ namespace kpp_rt.Объект
 
 
         }
+
+        private void EditObjectForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ObjectForm form = new ObjectForm();
+            this.Hide();
+            form.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ObjectForm form = new ObjectForm();
+            this.Hide();
+            form.Show();
+        }
     }
 }

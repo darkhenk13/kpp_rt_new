@@ -31,6 +31,8 @@ namespace kpp_rt.Карта
 
         private void CreateCardForm_Load(object sender, EventArgs e)
         {
+            textBox1.Enabled = false;
+            textBox2.Enabled = false;
             // форма по центру
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
                 (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
@@ -201,44 +203,86 @@ namespace kpp_rt.Карта
 
         private void button3_Click(object sender, EventArgs e)
         {
-          
-            serch_pers();
-            serch_sotrud();
+            try
+            {
+                if (textBox1.Text.Equals("") || textBox2.Text.Equals(""))
+                { MessageBox.Show("Не все поля заполнены!", "Ошибка"); }
+                else
+                {
+                    serch_pers();
+                    serch_sotrud();
 
 
-            SqlConnection conn = new SqlConnection(connectString);
-            SqlCommand cmd = new SqlCommand();
-            conn.Open(); //Устанавливаем соединение с базой данных.
-            cmd.Connection = conn;
-            cmd.CommandText = @"INSERT INTO [Карта] (ID_Карты, 
+                    SqlConnection conn = new SqlConnection(connectString);
+                    SqlCommand cmd = new SqlCommand();
+
+                    // Заблокированная карта
+
+                    conn.Open(); //Устанавливаем соединение с базой данных.
+                    cmd.Connection = conn;
+                    cmd.CommandText = @"INSERT INTO [ЗаблокированныеКарты] (Блокировка)
+                                        values (@Блокировка)";
+
+
+                    cmd.Parameters.Add("@Блокировка", SqlDbType.Int);
+                    cmd.Parameters["@Блокировка"].Value = 0;
+
+                    //cmd.Parameters.Add("@Дата_Блокировки", SqlDbType.NVarChar);
+                    //cmd.Parameters["@Дата_Блокировки"].Value = id_sotr;
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "SELECT @@IDENTITY";
+                    int lastId = Convert.ToInt32(cmd.ExecuteScalar());
+                    // Close();
+                    conn.Close();
+
+                    // Заблокированная карта
+
+
+
+
+                    // Карта
+                    conn.Open(); //Устанавливаем соединение с базой данных.
+                    cmd.Connection = conn;
+                    cmd.CommandText = @"INSERT INTO [Карта] (ID_Карты, ID_ЗаблКарта,
 		                                ID_Сотрудника)
-                                        values (@ID_Карты, 
+                                        values (@ID_Карты, @ID_ЗаблКарта,
 		                                @ID_Сотрудника)";
 
 
-            cmd.Parameters.Add("@ID_Карты", SqlDbType.Int);
-            cmd.Parameters["@ID_Карты"].Value = textBox1.Text;
+                    cmd.Parameters.Add("@ID_Карты", SqlDbType.Int);
+                    cmd.Parameters["@ID_Карты"].Value = textBox1.Text;
 
-            cmd.Parameters.Add("@ID_Сотрудника", SqlDbType.NVarChar);
-            cmd.Parameters["@ID_Сотрудника"].Value = id_sotr;
+                    cmd.Parameters.Add("@ID_ЗаблКарта", SqlDbType.Int);
+                    cmd.Parameters["@ID_ЗаблКарта"].Value = lastId;
+
+                    cmd.Parameters.Add("@ID_Сотрудника", SqlDbType.NVarChar);
+                    cmd.Parameters["@ID_Сотрудника"].Value = id_sotr;
+
+
+
+                    cmd.ExecuteNonQuery();
+
+                    // Close();
+                    conn.Close();
+                    // Карта
 
 
 
 
-            cmd.ExecuteNonQuery();
-            MessageBox.Show("Новая карта создана", "Добавление карты", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            // Close();
-            conn.Close();
 
-            Class1 clas = new Class1();
-            clas.users_ychet("Добавлене новой карты");
+                    MessageBox.Show("Новая карта создана", "Добавление карты", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
-            
+                    Class1 clas = new Class1();
+                    clas.users_ychet("Добавлене новой карты");
 
-            CartForm form = new CartForm();
-            this.Hide();
-            form.Show();
 
+
+                    CartForm form = new CartForm();
+                    this.Hide();
+                    form.Show();
+                }
+            }
+            catch { MessageBox.Show("Ошибка"); }
 
         }
 

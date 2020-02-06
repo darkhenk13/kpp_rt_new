@@ -1,6 +1,6 @@
-﻿namespace kpp_rt.Уровень_доступа_Карт
+﻿namespace kpp_rt
 {
-    partial class YrDostupForm
+    partial class BlockForm
     {
         /// <summary>
         /// Required designer variable.
@@ -52,36 +52,31 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(71, 20);
-            this.toolStripMenuItem1.Text = "Добавить";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(136, 20);
+            this.toolStripMenuItem1.Text = "Заблокировать карту";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(99, 20);
-            this.toolStripMenuItem2.Text = "Редактировать";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(108, 20);
+            this.toolStripMenuItem2.Text = "Разблокировать";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(63, 20);
             this.toolStripMenuItem3.Text = "Удалить";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // dataGridView1
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 27);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 27);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(800, 422);
+            this.dataGridView1.Size = new System.Drawing.Size(776, 411);
             this.dataGridView1.TabIndex = 1;
             // 
-            // YrDostupForm
+            // BlockForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -89,10 +84,10 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "YrDostupForm";
-            this.Text = "Уровень доступа";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.YrDostupForm_FormClosing);
-            this.Load += new System.EventHandler(this.YrDostupForm_Load);
+            this.Name = "BlockForm";
+            this.Text = "Заблокированная карта";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BlockForm_FormClosing);
+            this.Load += new System.EventHandler(this.BlockForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

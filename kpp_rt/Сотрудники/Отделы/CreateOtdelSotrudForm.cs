@@ -25,33 +25,37 @@ namespace kpp_rt.Сотрудники.Отделы
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text.Equals(""))
+            try
             {
-                MessageBox.Show("Заполните поле ввода","Ошибка");
+                if (textBox1.Text.Equals(""))
+                {
+                    MessageBox.Show("Заполните поле ввода", "Ошибка");
+                }
+                else
+                {
+                    SqlConnection conn = new SqlConnection(connectString);
+                    SqlCommand cmd = new SqlCommand();
+                    conn.Open();
+                    cmd.Connection = conn;
+                    cmd.CommandText = @"INSERT INTO [Отделы] (Отдел)values(@Отдел)";
+
+                    cmd.Parameters.Add("@Отдел", SqlDbType.NVarChar);
+                    cmd.Parameters["@Отдел"].Value = textBox1.Text;
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+
+
+                    MessageBox.Show("Новыый отдел в таблицу Отделы добавлена", "Добавление новой записи", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+
+                    Class1 clas = new Class1();
+                    clas.users_ychet("Добавлене нового отдела");
+
+                    OtdelSotrudForm form = new OtdelSotrudForm();
+                    this.Hide();
+                    form.Show();
+                }
             }
-            else
-            {
-                SqlConnection conn = new SqlConnection(connectString);
-                SqlCommand cmd = new SqlCommand();
-                conn.Open();
-                cmd.Connection = conn;
-                cmd.CommandText = @"INSERT INTO [Отделы] (Отдел)values(@Отдел)";
-
-                cmd.Parameters.Add("@Отдел", SqlDbType.NVarChar);
-                cmd.Parameters["@Отдел"].Value = textBox1.Text;
-                cmd.ExecuteNonQuery();
-                conn.Close();
-
-
-                MessageBox.Show("Новыый отдел в таблицу Отделы добавлена", "Добавление новой записи", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-
-                Class1 clas = new Class1();
-                clas.users_ychet("Добавлене нового отдела");
-
-                OtdelSotrudForm form = new OtdelSotrudForm();
-                this.Hide();
-                form.Show();
-            }
+            catch { MessageBox.Show("Ошибка"); }
         }
 
         private void CreateOtdelSotrudForm_Load(object sender, EventArgs e)

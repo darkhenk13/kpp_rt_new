@@ -155,7 +155,7 @@ AND сот.ID_ПерснСотрудника = пдс.ID_ПерснСотруд�
 
             command2.Connection = conn2;
             conn2.Open();
-            command2.CommandText = @"TRUNCATE TABLE Users";
+            command2.CommandText = @"TRUNCATE TABLE Log_users";
 
             command2.ExecuteNonQuery();
 

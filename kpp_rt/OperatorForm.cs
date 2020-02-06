@@ -28,6 +28,7 @@ namespace kpp_rt
 
         private void OperatorForm_Load(object sender, EventArgs e)
         {
+            radioButton1.Checked = true;
             //radioButton1.Checked = true;
             toolStripMenuItem1.Visible = false;
             // форма по центру

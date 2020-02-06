@@ -100,6 +100,7 @@ namespace kpp_rt.Сотрудники.Отделы
         PRIMARY KEY (ID_Отдела)
     );*/
                     // получить ID Отдела
+                   
                     SqlConnection connection1 = new SqlConnection(Form1.connectString);
                     SqlCommand command1 = new SqlCommand();
 
@@ -122,7 +123,7 @@ namespace kpp_rt.Сотрудники.Отделы
                     SqlCommand command3 = new SqlCommand();
                     command3.Connection = connection3;
                     connection3.Open();
-                    command3.CommandText = @"DELETE FROM Должность WHERE ID_Должность='" + id_dol + "'";
+                    command3.CommandText = @"DELETE FROM Отделы WHERE ID_Отдела='" + id_dol + "'";
                     command3.ExecuteNonQuery();
                     connection3.Close();
 

@@ -182,9 +182,6 @@ namespace kpp_rt.Сотрудники
             // Должности
             command.Connection = connection;
             command.CommandText = "SELECT ID_Отдела, Отдел FROM Отделы WHERE Отдел='" + arr1[0] + "'";
-
-            // command.CommandText = "SELECT ID_Пользователь, login, password, role, Фамилия, Имя, Отчество, ДатаРегистрации FROM users WHERE ID_Пользователь=" + id + "";
-
             connection.Open();
 
             SqlDataReader reader2 = command.ExecuteReader();

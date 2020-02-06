@@ -65,23 +65,31 @@ namespace kpp_rt.Клиенты
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SqlConnection connection1 = new SqlConnection(connectString);
-            SqlCommand command1 = new SqlCommand();
-            command1.Connection = connection1;
-            command1.CommandText = @"UPDATE ПерсональныеДанныеКлиентов SET ФИО='" + textBox1.Text + "', Номер_Паспорта='" + textBox2.Text + "', Дата_Рождения='" + textBox3.Text + "'  WHERE id_ПерснДаннКлиента=" + id_pers + "";
-            connection1.Open();
-            command1.ExecuteNonQuery();
-            connection1.Close();
-            
-            MessageBox.Show("Данные изменены!");
+            try
+            {
+                if (textBox1.Text.Equals("") || textBox2.Text.Equals("") || textBox3.Text.Equals("") || textBox4.Text.Equals(""))
+                { MessageBox.Show("Заполните все поля ввода", "Ошибка"); }
+                else
+                {
+                    SqlConnection connection1 = new SqlConnection(connectString);
+                    SqlCommand command1 = new SqlCommand();
+                    command1.Connection = connection1;
+                    command1.CommandText = @"UPDATE ПерсональныеДанныеКлиентов SET ФИО='" + textBox1.Text + "', Номер_Паспорта='" + textBox2.Text + "', Дата_Рождения='" + textBox3.Text + "'  WHERE id_ПерснДаннКлиента=" + id_pers + "";
+                    connection1.Open();
+                    command1.ExecuteNonQuery();
+                    connection1.Close();
 
-            Class1 clas = new Class1();
-            clas.users_ychet("Изменение нового сотрудника");
+                    MessageBox.Show("Данные изменены!");
 
-            KlientForm form = new KlientForm();
-            this.Hide();
-            form.Show();
+                    Class1 clas = new Class1();
+                    clas.users_ychet("Изменение нового сотрудника");
 
+                    KlientForm form = new KlientForm();
+                    this.Hide();
+                    form.Show();
+                }
+            }
+            catch { MessageBox.Show("Ошибка"); }
 
         }
 

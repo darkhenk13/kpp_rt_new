@@ -65,114 +65,120 @@ JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_�
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            
-            //Редактирование строки
-            for (int i = 0; i < 4; i++)
+            try
             {
-                arr[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+                //Редактирование строки
+                for (int i = 0; i < 4; i++)
+                {
+                    arr[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+                }
+
+                //for (int j = 0; j < 4; j++)
+                //{
+                //    MessageBox.Show(" ", arr[j]);
+
+                //}
+
+                EditKlientForm form = new EditKlientForm();
+                form.arr1 = arr;
+                this.Hide();
+                form.Show();
             }
-
-            //for (int j = 0; j < 4; j++)
-            //{
-            //    MessageBox.Show(" ", arr[j]);
-
-            //}
-
-            EditKlientForm form = new EditKlientForm();
-            form.arr1 = arr;
-            this.Hide();
-            form.Show();
+            catch { MessageBox.Show("Ошибка"); }
 
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            string[] arr_del = new string[4];
-            string id1 = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString();
-            string id_pers = "";
-            string FIO = "";
-            string Nomer_Passport = "";
-            string Date_roz = "";
-            string id_clienta = "";
-            string id_persdan = "";
-            string date_reg = "";
-
-            for (int i = 0; i < 4; i++)
+            try
             {
-                arr_del[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
-            }
+                string[] arr_del = new string[4];
+                string id1 = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString();
+                string id_pers = "";
+                string FIO = "";
+                string Nomer_Passport = "";
+                string Date_roz = "";
+                string id_clienta = "";
+                string id_persdan = "";
+                string date_reg = "";
 
-            DialogResult dialogResult = MessageBox.Show("Удалить клиента?", "Удалить", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                // получить ID Персонаьные данные клиента
-                SqlConnection connection = new SqlConnection(connectString);
-                SqlCommand command = new SqlCommand();
-
-                command.Connection = connection;
-                command.CommandText = "SELECT ID_ПерснДаннКлиента, ФИО, Номер_Паспорта, Дата_Рождения FROM ПерсональныеДанныеКлиентов WHERE ФИО='" + arr_del[1] + "' AND Номер_Паспорта='" + arr_del[2] + "' AND Дата_Рождения='" + arr_del[3] + "'";
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                for (int i = 0; i < 4; i++)
                 {
-                    id_pers = reader[0].ToString();
-                    FIO = reader[1].ToString();
-                    Nomer_Passport = reader[2].ToString();
-                    Date_roz = reader[3].ToString();
-                }
-                connection.Close();
-                // конец ID Персонаьные данные клиента
-
-                // получить ID клиента
-                SqlConnection connection1 = new SqlConnection(connectString);
-                SqlCommand command1 = new SqlCommand();
-
-                command1.Connection = connection1;
-                connection1.Open();
-                command1.CommandText = "SELECT ID_Клиента, ID_ПерснДанныеКлиента, Дата_Регистрации_Клиента FROM Клиенты WHERE ID_ПерснДанныеКлиента='" + id_pers + "' AND Дата_Регистрации_Клиента='" + arr_del[0] + "'";
-
-                SqlDataReader reader1 = command1.ExecuteReader();
-
-                while (reader1.Read())
-                {
-                    id_clienta = reader1[0].ToString();
-                    id_persdan = reader1[1].ToString();
-                    date_reg = reader1[2].ToString();
-
-                }
-                connection1.Close();
-
-                //конец ID клиента
-                SqlConnection connection3 = new SqlConnection(connectString);
-                SqlCommand command3 = new SqlCommand();
-                command3.Connection = connection3;
-                connection3.Open();
-                command3.CommandText = @"DELETE FROM Клиенты WHERE ID_Клиента='" + id_clienta + "'";
-                command3.ExecuteNonQuery();
-                connection3.Close();
-
-                command3.Connection = connection3;
-                command3.CommandText = @"DELETE FROM ПерсональныеДанныеКлиентов WHERE ID_ПерснДаннКлиента='" + id_pers + "'";
-                connection3.Open();
-                command3.ExecuteNonQuery();
-                connection3.Close();
-
-                Class1 clas = new Class1();
-                clas.users_ychet("Удаление нового сотрудника");
-
-                foreach (DataGridViewRow row in dataGridView1.SelectedRows)
-                {
-                    dataGridView1.Rows.Remove(row);
+                    arr_del[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
                 }
 
-            }
-            else if (dialogResult == DialogResult.No)
-            {
-                //do something else
-            }
+                DialogResult dialogResult = MessageBox.Show("Удалить клиента?", "Удалить", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    // получить ID Персонаьные данные клиента
+                    SqlConnection connection = new SqlConnection(connectString);
+                    SqlCommand command = new SqlCommand();
 
+                    command.Connection = connection;
+                    command.CommandText = "SELECT ID_ПерснДаннКлиента, ФИО, Номер_Паспорта, Дата_Рождения FROM ПерсональныеДанныеКлиентов WHERE ФИО='" + arr_del[1] + "' AND Номер_Паспорта='" + arr_del[2] + "' AND Дата_Рождения='" + arr_del[3] + "'";
+                    connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        id_pers = reader[0].ToString();
+                        FIO = reader[1].ToString();
+                        Nomer_Passport = reader[2].ToString();
+                        Date_roz = reader[3].ToString();
+                    }
+                    connection.Close();
+                    // конец ID Персонаьные данные клиента
+
+                    // получить ID клиента
+                    SqlConnection connection1 = new SqlConnection(connectString);
+                    SqlCommand command1 = new SqlCommand();
+
+                    command1.Connection = connection1;
+                    connection1.Open();
+                    command1.CommandText = "SELECT ID_Клиента, ID_ПерснДанныеКлиента, Дата_Регистрации_Клиента FROM Клиенты WHERE ID_ПерснДанныеКлиента='" + id_pers + "' AND Дата_Регистрации_Клиента='" + arr_del[0] + "'";
+
+                    SqlDataReader reader1 = command1.ExecuteReader();
+
+                    while (reader1.Read())
+                    {
+                        id_clienta = reader1[0].ToString();
+                        id_persdan = reader1[1].ToString();
+                        date_reg = reader1[2].ToString();
+
+                    }
+                    connection1.Close();
+
+                    //конец ID клиента
+                    SqlConnection connection3 = new SqlConnection(connectString);
+                    SqlCommand command3 = new SqlCommand();
+                    command3.Connection = connection3;
+                    connection3.Open();
+                    command3.CommandText = @"DELETE FROM Клиенты WHERE ID_Клиента='" + id_clienta + "'";
+                    command3.ExecuteNonQuery();
+                    connection3.Close();
+
+                    command3.Connection = connection3;
+                    command3.CommandText = @"DELETE FROM ПерсональныеДанныеКлиентов WHERE ID_ПерснДаннКлиента='" + id_pers + "'";
+                    connection3.Open();
+                    command3.ExecuteNonQuery();
+                    connection3.Close();
+
+                    Class1 clas = new Class1();
+                    clas.users_ychet("Удаление нового сотрудника");
+
+                    foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                    {
+                        dataGridView1.Rows.Remove(row);
+                    }
+
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do something else
+                }
+            }
+            catch { MessageBox.Show("Ошибка"); }
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -185,69 +191,72 @@ JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_�
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 4; i++)
+            try
             {
-                klient[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+                for (int i = 0; i < 4; i++)
+                {
+                    klient[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+                }
+
+                search_persid();
+                search_klientid();
+                search_status();
+                SqlConnection conn = new SqlConnection(connectString);
+                SqlCommand cmd = new SqlCommand();
+                string dates = DateTime.Now.ToString("dd-MM-yyyy");
+
+                string times = DateTime.Now.ToString("HH:mm:ss");
+
+                if (status_klienta != "true")
+                {
+
+                    conn.Open();
+                    cmd.Connection = conn;
+                    cmd.CommandText = @"INSERT INTO[УчетПосещений] (Время, Дата, Статус, ID_Клиента) values (@Время, @Дата, @Статус, @ID_Клиента)";
+
+                    cmd.Parameters.Add("@Время", SqlDbType.NVarChar);
+                    cmd.Parameters["@Время"].Value = times;
+
+                    cmd.Parameters.Add("@Дата", SqlDbType.NVarChar);
+                    cmd.Parameters["@Дата"].Value = dates;
+
+                    cmd.Parameters.Add("@Статус", SqlDbType.NVarChar);
+                    cmd.Parameters["@Статус"].Value = "true";
+
+                    cmd.Parameters.Add("@ID_Клиента", SqlDbType.NVarChar);
+                    cmd.Parameters["@ID_Клиента"].Value = id_klient;
+
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+
+                }
+                else
+                {
+
+                    conn.Open();
+                    cmd.Connection = conn;
+                    cmd.CommandText = @"INSERT INTO[УчетПосещений] (Время, Дата, Статус, ID_Клиента) values (@Время, @Дата, @Статус, @ID_Клиента)";
+
+                    cmd.Parameters.Add("@Время", SqlDbType.NVarChar);
+                    cmd.Parameters["@Время"].Value = times;
+
+                    cmd.Parameters.Add("@Дата", SqlDbType.NVarChar);
+                    cmd.Parameters["@Дата"].Value = dates;
+
+                    cmd.Parameters.Add("@Статус", SqlDbType.NVarChar);
+                    cmd.Parameters["@Статус"].Value = "false";
+
+                    cmd.Parameters.Add("@ID_Клиента", SqlDbType.NVarChar);
+                    cmd.Parameters["@ID_Клиента"].Value = id_klient;
+
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+
+
+                MessageBox.Show("Клиент добавлен в учет посещений", "Добавление новой записи", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
-
-            search_persid(); 
-            search_klientid();
-            search_status();
-            SqlConnection conn = new SqlConnection(connectString);
-            SqlCommand cmd = new SqlCommand();
-            string dates = DateTime.Now.ToString("dd-MM-yyyy");
-            
-            string times = DateTime.Now.ToString("HH:mm:ss");
-
-            if (status_klienta != "true")
-            {
-
-                conn.Open();
-                cmd.Connection = conn;
-                cmd.CommandText = @"INSERT INTO[УчетПосещений] (Время, Дата, Статус, ID_Клиента) values (@Время, @Дата, @Статус, @ID_Клиента)";
-
-                cmd.Parameters.Add("@Время", SqlDbType.NVarChar);
-                cmd.Parameters["@Время"].Value = times;
-
-                cmd.Parameters.Add("@Дата", SqlDbType.NVarChar);
-                cmd.Parameters["@Дата"].Value = dates;
-
-                cmd.Parameters.Add("@Статус", SqlDbType.NVarChar);
-                cmd.Parameters["@Статус"].Value = "true";
-
-                cmd.Parameters.Add("@ID_Клиента", SqlDbType.NVarChar);
-                cmd.Parameters["@ID_Клиента"].Value = id_klient;
-
-                cmd.ExecuteNonQuery();
-                conn.Close();
-
-            }
-            else
-            {
-
-                conn.Open();
-                cmd.Connection = conn;
-                cmd.CommandText = @"INSERT INTO[УчетПосещений] (Время, Дата, Статус, ID_Клиента) values (@Время, @Дата, @Статус, @ID_Клиента)";
-
-                cmd.Parameters.Add("@Время", SqlDbType.NVarChar);
-                cmd.Parameters["@Время"].Value = times;
-
-                cmd.Parameters.Add("@Дата", SqlDbType.NVarChar);
-                cmd.Parameters["@Дата"].Value = dates;
-
-                cmd.Parameters.Add("@Статус", SqlDbType.NVarChar);
-                cmd.Parameters["@Статус"].Value = "false";
-
-                cmd.Parameters.Add("@ID_Клиента", SqlDbType.NVarChar);
-                cmd.Parameters["@ID_Клиента"].Value = id_klient;
-
-                cmd.ExecuteNonQuery();
-                conn.Close();
-            }
-              
-
-            MessageBox.Show("Клиент добавлен в учет посещений", "Добавление новой записи", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-
+            catch { MessageBox.Show("Ошибка"); }
 
           
 

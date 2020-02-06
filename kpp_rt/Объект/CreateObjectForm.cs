@@ -31,39 +31,61 @@ namespace kpp_rt.Объект
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SqlConnection conn = new SqlConnection(connectString);
-            SqlCommand cmd = new SqlCommand();
-            conn.Open();
-            cmd.Connection = conn;
-            cmd.CommandText = @"INSERT INTO [Объект] (Город, Улица, Здание, Этаж)values(@Город, @Улица, @Здание, @Этаж)";
+            try
+            {
+                if (textBox1.Text.Equals("") || textBox2.Text.Equals("") || textBox3.Text.Equals("") || textBox4.Text.Equals(""))
+                { MessageBox.Show("Не все поля заполенны", "Ошибка"); }
+                else
+                {
+                    SqlConnection conn = new SqlConnection(connectString);
+                    SqlCommand cmd = new SqlCommand();
+                    conn.Open();
+                    cmd.Connection = conn;
+                    cmd.CommandText = @"INSERT INTO [Объект] (Город, Улица, Здание, Этаж)values(@Город, @Улица, @Здание, @Этаж)";
 
-            cmd.Parameters.Add("@Город", SqlDbType.NVarChar);
-            cmd.Parameters["@Город"].Value = textBox1.Text;
+                    cmd.Parameters.Add("@Город", SqlDbType.NVarChar);
+                    cmd.Parameters["@Город"].Value = textBox1.Text;
 
-            cmd.Parameters.Add("@Улица", SqlDbType.NVarChar);
-            cmd.Parameters["@Улица"].Value = textBox2.Text;
+                    cmd.Parameters.Add("@Улица", SqlDbType.NVarChar);
+                    cmd.Parameters["@Улица"].Value = textBox2.Text;
 
-            cmd.Parameters.Add("@Здание", SqlDbType.NVarChar);
-            cmd.Parameters["@Здание"].Value = textBox3.Text;
+                    cmd.Parameters.Add("@Здание", SqlDbType.NVarChar);
+                    cmd.Parameters["@Здание"].Value = textBox3.Text;
 
-            cmd.Parameters.Add("@Этаж", SqlDbType.NVarChar);
-            cmd.Parameters["@Этаж"].Value = textBox4.Text;
-
-
-            cmd.ExecuteNonQuery();
-            conn.Close();
+                    cmd.Parameters.Add("@Этаж", SqlDbType.NVarChar);
+                    cmd.Parameters["@Этаж"].Value = textBox4.Text;
 
 
-            MessageBox.Show("Новая запись добавлена!", "Добавление новой записи", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
 
-            Class1 clas = new Class1();
-            clas.users_ychet("Добавлене нового объекта");
 
+                    MessageBox.Show("Новая запись добавлена!", "Добавление новой записи", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+
+                    Class1 clas = new Class1();
+                    clas.users_ychet("Добавлене нового объекта");
+
+                    ObjectForm form = new ObjectForm();
+                    this.Hide();
+                    form.Show();
+                }
+            }
+            catch { MessageBox.Show("Ошибка"); }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
             ObjectForm form = new ObjectForm();
             this.Hide();
             form.Show();
+        }
 
-
+        private void CreateObjectForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ObjectForm form = new ObjectForm();
+            this.Hide();
+            form.Show();
         }
     }
 }

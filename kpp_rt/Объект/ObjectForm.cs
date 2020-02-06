@@ -63,82 +63,87 @@ namespace kpp_rt.Объект
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-           
-            //Редактирование строки
-            for (int i = 0; i < 4; i++)
+            try
             {
-                arr_object[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
-            }
+                //Редактирование строки
+                for (int i = 0; i < 4; i++)
+                {
+                    arr_object[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+                }
 
-            EditObjectForm form = new EditObjectForm();
-            form.arr_object1 = arr_object;
-            this.Hide();
-            form.Show();
+                EditObjectForm form = new EditObjectForm();
+                form.arr_object1 = arr_object;
+                this.Hide();
+                form.Show();
+            }
+            catch { MessageBox.Show("Ошибка"); }
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-
-            // ********************************************************
-            string[] arr_del = new string[4];
-            string id1 = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString();
-            string id_objecta = "";
-            string Gorod;
-            string Yl;
-            string Zd;
-            string Ut;
-            
-
-            for (int i = 0; i < 4; i++)
+            try
             {
-                arr_del[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
-            }
+                // ********************************************************
+                string[] arr_del = new string[4];
+                string id1 = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString();
+                string id_objecta = "";
+                string Gorod;
+                string Yl;
+                string Zd;
+                string Ut;
 
-            DialogResult dialogResult = MessageBox.Show("Удалить клиента?", "Удалить", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                // получить ID Персонаьные данные клиента
-                SqlConnection connection = new SqlConnection(connectString);
-                SqlCommand command = new SqlCommand();
 
-                command.Connection = connection;
-                command.CommandText = "SELECT ID_Объекта, Город, Улица, Здание, Этаж FROM Объект WHERE Город='" + arr_del[0] + "' AND Улица='" + arr_del[1] + "' AND Здание='" + arr_del[2] + "' AND Этаж='" + arr_del[3] + "'";
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                for (int i = 0; i < 4; i++)
                 {
-                    id_objecta = reader[0].ToString();
-                    Gorod = reader[1].ToString();
-                    Yl = reader[2].ToString();
-                    Zd = reader[3].ToString();
-                    Ut = reader[4].ToString();
-                }
-                connection.Close();
-           
-                SqlConnection connection3 = new SqlConnection(connectString);
-                SqlCommand command3 = new SqlCommand();
-                command3.Connection = connection3;
-                connection3.Open();
-                command3.CommandText = @"DELETE FROM Объект WHERE ID_Объекта='" + id_objecta + "'";
-                command3.ExecuteNonQuery();
-                connection3.Close();
-
-                Class1 clas = new Class1();
-                clas.users_ychet("Удаление объекта");
-
-                foreach (DataGridViewRow row in dataGridView1.SelectedRows)
-                {
-                    dataGridView1.Rows.Remove(row);
+                    arr_del[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
                 }
 
-            }
-            else if (dialogResult == DialogResult.No)
-            {
-                //do something else
-            }
+                DialogResult dialogResult = MessageBox.Show("Удалить клиента?", "Удалить", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    // получить ID Персонаьные данные клиента
+                    SqlConnection connection = new SqlConnection(connectString);
+                    SqlCommand command = new SqlCommand();
 
+                    command.Connection = connection;
+                    command.CommandText = "SELECT ID_Объекта, Город, Улица, Здание, Этаж FROM Объект WHERE Город='" + arr_del[0] + "' AND Улица='" + arr_del[1] + "' AND Здание='" + arr_del[2] + "' AND Этаж='" + arr_del[3] + "'";
+                    connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        id_objecta = reader[0].ToString();
+                        Gorod = reader[1].ToString();
+                        Yl = reader[2].ToString();
+                        Zd = reader[3].ToString();
+                        Ut = reader[4].ToString();
+                    }
+                    connection.Close();
+
+                    SqlConnection connection3 = new SqlConnection(connectString);
+                    SqlCommand command3 = new SqlCommand();
+                    command3.Connection = connection3;
+                    connection3.Open();
+                    command3.CommandText = @"DELETE FROM Объект WHERE ID_Объекта='" + id_objecta + "'";
+                    command3.ExecuteNonQuery();
+                    connection3.Close();
+
+                    Class1 clas = new Class1();
+                    clas.users_ychet("Удаление объекта");
+
+                    foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                    {
+                        dataGridView1.Rows.Remove(row);
+                    }
+
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do something else
+                }
+            }
+            catch { MessageBox.Show("Ошибка"); }
 
             //_______________________________________________
 

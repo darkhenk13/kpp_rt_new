@@ -22,78 +22,89 @@ namespace kpp_rt.Клиенты
         string connectString = ConfigurationManager.ConnectionStrings["SqlBD"].ConnectionString;
         private void button2_Click(object sender, EventArgs e)
         {
-            // таблица клиенты
-            int id_clienta;
-            int id_persndan;
-            int datereg;
+            try
+            {
 
-            //таблица персданныеклиента
-            int id_pers;
-            string fio;
-            string number;
-            string date;
 
-            // добавление в таблицуу персн данные клиента
-            SqlConnection conn = new SqlConnection(connectString);
-            SqlCommand cmd = new SqlCommand();
-            conn.Open(); //Устанавливаем соединение с базой данных.
-            cmd.Connection = conn;
-            cmd.CommandText = @"INSERT INTO [ПерсональныеДанныеКлиентов] (ФИО,
+                if (textBox1.Text.Equals("") || textBox2.Text.Equals("") || textBox3.Text.Equals(""))
+                { MessageBox.Show("Заполните все поля ввода!", "Ошибка"); }
+                else
+                {
+                    // таблица клиенты
+                    int id_clienta;
+                    int id_persndan;
+                    int datereg;
+
+                    //таблица персданныеклиента
+                    int id_pers;
+                    string fio;
+                    string number;
+                    string date;
+
+                    // добавление в таблицуу персн данные клиента
+                    SqlConnection conn = new SqlConnection(connectString);
+                    SqlCommand cmd = new SqlCommand();
+                    conn.Open(); //Устанавливаем соединение с базой данных.
+                    cmd.Connection = conn;
+                    cmd.CommandText = @"INSERT INTO [ПерсональныеДанныеКлиентов] (ФИО,
                                 Номер_Паспорта, Дата_Рождения)
                                         values (@ФИО,
                                 @Номер_Паспорта, @Дата_Рождения)";
 
 
-            cmd.Parameters.Add("@ФИО", SqlDbType.NVarChar);
-            cmd.Parameters["@ФИО"].Value = textBox1.Text;
+                    cmd.Parameters.Add("@ФИО", SqlDbType.NVarChar);
+                    cmd.Parameters["@ФИО"].Value = textBox1.Text;
 
-            cmd.Parameters.Add("@Номер_Паспорта", SqlDbType.NVarChar);
-            cmd.Parameters["@Номер_Паспорта"].Value = textBox2.Text;
+                    cmd.Parameters.Add("@Номер_Паспорта", SqlDbType.NVarChar);
+                    cmd.Parameters["@Номер_Паспорта"].Value = textBox2.Text;
 
-            cmd.Parameters.Add("@Дата_Рождения", SqlDbType.NVarChar);
-            cmd.Parameters["@Дата_Рождения"].Value = textBox3.Text;
+                    cmd.Parameters.Add("@Дата_Рождения", SqlDbType.NVarChar);
+                    cmd.Parameters["@Дата_Рождения"].Value = textBox3.Text;
 
-            cmd.ExecuteNonQuery();
-            cmd.CommandText = "SELECT @@IDENTITY";
-            int lastId = Convert.ToInt32(cmd.ExecuteScalar());
-           
-            //MessageBox.Show("Новый клиент в таблицу Клиенты добавлен", "Добавление", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            // Close();
-            conn.Close();
-            // Добавление в таблицу персн данные клиента
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "SELECT @@IDENTITY";
+                    int lastId = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    //MessageBox.Show("Новый клиент в таблицу Клиенты добавлен", "Добавление", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    // Close();
+                    conn.Close();
+                    // Добавление в таблицу персн данные клиента
 
 
 
-            // Добавление в таблицу клиентов
+                    // Добавление в таблицу клиентов
 
-            string _date = DateTime.Now.ToString("dd MMMM yyyy");
-            conn.Open(); //Устанавливаем соединение с базой данных.
-            cmd.Connection = conn;
-            cmd.CommandText = @"INSERT INTO [Клиенты] (ID_ПерснДанныеКлиента,
+                    string _date = DateTime.Now.ToString("dd MMMM yyyy");
+                    conn.Open(); //Устанавливаем соединение с базой данных.
+                    cmd.Connection = conn;
+                    cmd.CommandText = @"INSERT INTO [Клиенты] (ID_ПерснДанныеКлиента,
                                 Дата_Регистрации_Клиента)
                                         values (@ID_ПерснДанныеКлиента, @Дата_Регистрации_Клиента)";
 
 
-            cmd.Parameters.Add("@ID_ПерснДанныеКлиента", SqlDbType.NVarChar);
-            cmd.Parameters["@ID_ПерснДанныеКлиента"].Value = lastId;
+                    cmd.Parameters.Add("@ID_ПерснДанныеКлиента", SqlDbType.NVarChar);
+                    cmd.Parameters["@ID_ПерснДанныеКлиента"].Value = lastId;
 
-            cmd.Parameters.Add("@Дата_Регистрации_Клиента", SqlDbType.NVarChar);
-            cmd.Parameters["@Дата_Регистрации_Клиента"].Value = _date;
-
-          
+                    cmd.Parameters.Add("@Дата_Регистрации_Клиента", SqlDbType.NVarChar);
+                    cmd.Parameters["@Дата_Регистрации_Клиента"].Value = _date;
 
 
-            cmd.ExecuteNonQuery();
-            MessageBox.Show("Новый клиент добавлен", "Добавление", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            // Close();
-            conn.Close();
 
-            Class1 clas = new Class1();
-            clas.users_ychet("Добавлене нового клиента");
 
-            KlientForm form = new KlientForm();
-            this.Hide();
-            form.Show();
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Новый клиент добавлен", "Добавление", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    // Close();
+                    conn.Close();
+
+                    Class1 clas = new Class1();
+                    clas.users_ychet("Добавлене нового клиента");
+
+                    KlientForm form = new KlientForm();
+                    this.Hide();
+                    form.Show();
+                }
+            }
+            catch { MessageBox.Show("Ошибка"); }
         }
 
         private void button1_Click(object sender, EventArgs e)

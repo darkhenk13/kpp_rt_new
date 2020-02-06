@@ -67,6 +67,12 @@
     <Compile Include="AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BlockForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BlockForm.Designer.cs">
+      <DependentUpon>BlockForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="ComPortSettingsForm.cs">
       <SubType>Form</SubType>
@@ -79,6 +85,18 @@
     </Compile>
     <Compile Include="CreateAdminForm.Designer.cs">
       <DependentUpon>CreateAdminForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateBlockForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateBlockForm.Designer.cs">
+      <DependentUpon>CreateBlockForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateBlockSotrudForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateBlockSotrudForm.Designer.cs">
+      <DependentUpon>CreateBlockSotrudForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateSotrudAdminForm.cs">
       <SubType>Form</SubType>
@@ -292,6 +310,18 @@
     <Compile Include="Уровень доступа Карт\CreateYtSotrudForm.Designer.cs">
       <DependentUpon>CreateYtSotrudForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Уровень доступа Карт\EditYdForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Уровень доступа Карт\EditYdForm.Designer.cs">
+      <DependentUpon>EditYdForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Уровень доступа Карт\EditYdKlientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Уровень доступа Карт\EditYdKlientForm.Designer.cs">
+      <DependentUpon>EditYdKlientForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Уровень доступа Карт\YrDostupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -301,11 +331,20 @@
     <EmbeddedResource Include="AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BlockForm.resx">
+      <DependentUpon>BlockForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ComPortSettingsForm.resx">
       <DependentUpon>ComPortSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateAdminForm.resx">
       <DependentUpon>CreateAdminForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateBlockForm.resx">
+      <DependentUpon>CreateBlockForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateBlockSotrudForm.resx">
+      <DependentUpon>CreateBlockSotrudForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateSotrudAdminForm.resx">
       <DependentUpon>CreateSotrudAdminForm.cs</DependentUpon>
@@ -420,6 +459,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Уровень доступа Карт\CreateYtSotrudForm.resx">
       <DependentUpon>CreateYtSotrudForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Уровень доступа Карт\EditYdForm.resx">
+      <DependentUpon>EditYdForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Уровень доступа Карт\EditYdKlientForm.resx">
+      <DependentUpon>EditYdKlientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Уровень доступа Карт\YrDostupForm.resx">
       <DependentUpon>YrDostupForm.cs</DependentUpon>
