@@ -26,7 +26,8 @@ namespace kpp_rt.Сотрудники
         public string date;
         public string id_otdel;
         public string id_dolz;
-      
+        public string comb;
+        public string comb1;
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -177,11 +178,11 @@ namespace kpp_rt.Сотрудники
             connection.Close();
             // сотрудники
 
-          
 
-            // Должности
+           
+            // Отдел
             command.Connection = connection;
-            command.CommandText = "SELECT ID_Отдела, Отдел FROM Отделы WHERE Отдел='" + arr1[0] + "'";
+            command.CommandText = "SELECT ID_Отдела, Отдел FROM Отделы WHERE ID_Отдела='" + id_otdel + "'";
             connection.Open();
 
             SqlDataReader reader2 = command.ExecuteReader();
@@ -189,55 +190,95 @@ namespace kpp_rt.Сотрудники
             while (reader2.Read())
             {
                 string d = reader2[0].ToString();
-                comboBox1.Text = reader2[1].ToString();
+                //comboBox1.Text = reader2[1].ToString();
+                comb = reader2[1].ToString();
             }
             connection.Close();
-            // Должности
+            // Отдел
 
+            // Должность
+            command.Connection = connection;
+            command.CommandText = "SELECT ID_Должность, Должность FROM Должность WHERE ID_Должность='" + id_dolz + "'";
+            connection.Open();
 
-            otdel();         
-            comboBox2.SelectedIndex = Convert.ToInt32(id_otdel) - 1;
+            SqlDataReader reader3 = command.ExecuteReader();
+
+            while (reader3.Read())
+            {
+                string d1 = reader3[0].ToString();
+                comb1 = reader3[1].ToString();
+            }
+            connection.Close();
+            // Должность
+            otdel_items();
             dolzs();
-            comboBox1.SelectedIndex = Convert.ToInt32(id_dolz) - 1;
-        
+
+            // Отдел
+            for (int i = 0; i < comboBox2.Items.Count; i++)
+            {
+                if (comboBox2.Items[i].ToString() == comb)
+                {
+                    comboBox2.SelectedIndex = i;
+                }
+                else {  } 
+            }
+            // Отдел
+            //Должность
+            for (int j = 0; j < comboBox1.Items.Count; j++)
+            { 
+                if (comboBox1.Items[j].ToString() == comb1)
+                {
+                    comboBox1.SelectedIndex = j;
+                }
+                else { }         
+            }
+            // Должность
         }
 
-
-        void otdel()
+        void otdel_items()
         {
-            // Отдел
+            SqlConnection connection = new SqlConnection(connectString);
+            SqlCommand command = new SqlCommand();
 
-            SqlConnection connRC = new SqlConnection(connectString);
-            string command = "SELECT ID_Отдела, Отдел FROM Отделы";
-            SqlDataAdapter da = new SqlDataAdapter(command, connRC);
+            command.Connection = connection;
+            command.CommandText = "SELECT ID_Отдела, Отдел FROM Отделы";
+           
+            connection.Open();
 
-            DataSet ds = new DataSet();
-            connRC.Open();
-            da.Fill(ds);
-            connRC.Close();
-
-            comboBox2.DataSource = ds.Tables[0];
-            comboBox2.DisplayMember = "Отдел";
-            comboBox2.ValueMember = "ID_Отдела";
-            // Отдел
+            SqlDataReader reader = command.ExecuteReader();
+            
+            while (reader.Read())
+            {
+                id_pers = reader[0].ToString();
+                comboBox2.Items.Add(reader[1].ToString());              
+            }
+            connection.Close();
         }
 
         void dolzs()
         {
-            SqlConnection connRC = new SqlConnection(connectString);
-            string command = "SELECT ID_Должность, Должность FROM Должность";
-            SqlDataAdapter da = new SqlDataAdapter(command, connRC);
+           
+            SqlConnection connection = new SqlConnection(connectString);
+            SqlCommand command = new SqlCommand();
 
-            DataSet ds = new DataSet();
-            connRC.Open();
-            da.Fill(ds);
-            connRC.Close();
+            command.Connection = connection;
+            command.CommandText = "SELECT ID_Должность, Должность FROM Должность";
 
-            comboBox1.DataSource = ds.Tables[0];
-            comboBox1.DisplayMember = "Должность";
-            comboBox1.ValueMember = "ID_Должность";
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                id_pers = reader[0].ToString();
+                comboBox1.Items.Add(reader[1].ToString());
+            }
+            connection.Close();
         }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }

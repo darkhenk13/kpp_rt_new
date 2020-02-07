@@ -20,7 +20,8 @@ namespace kpp_rt.Уровень_доступа_Карт
         }
         public string[] arr1 = new string[8];
         public string[] arr_kliient = new string[8];
-        public int k; 
+        public int k;
+        public string klient_old;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -55,7 +56,7 @@ namespace kpp_rt.Уровень_доступа_Карт
                 
                 if (k == 1)
                 {
-                    
+                    label1.Text = "Клиент";   
                     textBox1.Text = arr_kliient[1];
                 }
                 else
@@ -76,6 +77,91 @@ namespace kpp_rt.Уровень_доступа_Карт
 
 
         }
+
+
+        // 
+        //
+        private void itazh()
+        {
+            //string city;
+            //string street;
+            //string zd;
+            //string n;
+            //SqlConnection connection1 = new SqlConnection(Form1.connectString);
+            //SqlCommand command1 = new SqlCommand();
+
+            //command1.Connection = connection1;
+            //connection1.Open();
+            //command1.CommandText = "SELECT ID_Объекта, Этаж";
+
+            //SqlDataReader reader1 = command1.ExecuteReader();
+
+            //while (reader1.Read())
+            //{
+            //    id_object = reader1[0].ToString();
+            //    city = reader1[1].ToString();
+            //    street = reader1[2].ToString();
+            //    zd = reader1[3].ToString();
+
+            //}
+            //connection1.Close();
+            ////MessageBox.Show("Объект", id_object);
+            //if (String.IsNullOrEmpty(object_table[3]))
+            //{ }
+            //else
+            //{
+            //    for (int i = 1; i <= Convert.ToInt32(object_table[3]); i++)
+            //    {
+            //        comboBox2.Items.Add(i);
+            //    }
+            //}
+        }
+
+
+        private void klient(string FIO)
+        {
+            string id_pers = "";
+            // персональные данные клиента
+            SqlConnection connection = new SqlConnection(Form1.connectString);
+            SqlCommand command = new SqlCommand();
+
+            command.Connection = connection;
+            command.CommandText = "SELECT ID_ПерснДаннКлиента, ФИО FROM ПерсональныеДанныеКлиентов WHERE ФИО=" + FIO + "";
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                id_pers = reader[0].ToString();
+                string f = reader[1].ToString();            
+            }
+            connection.Close();
+            // конец поиска персональных данных клиента
+
+            //ид клиента
+            command.Connection = connection;
+            command.CommandText = "SELECT ID_Клиента, ID_ПерснДанныеКлиента FROM Клиенты WHERE ID_ПерснДанныеКлиента=" + id_pers + "";
+            connection.Open();
+
+            SqlDataReader reader1 = command.ExecuteReader();
+            while (reader1.Read())
+            {
+                klient_old = reader1[0].ToString();
+                string f = reader1[1].ToString();
+            }
+            connection.Close();
+            //конец ид клиента
+        }
+
+        // уровень доступа ID
+        private void YrDostupa()
+        {
+          
+        }
+
+
+
+
 
         private void button3_Click(object sender, EventArgs e)
         {

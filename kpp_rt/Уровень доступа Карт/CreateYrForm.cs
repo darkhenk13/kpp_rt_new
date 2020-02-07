@@ -49,8 +49,7 @@ namespace kpp_rt.Уровень_доступа_Карт
         // получить ID объекта и этажей
         void search_id_object()
         {
-            try
-            {
+           
                 string city;
                 string street;
                 string zd;
@@ -83,8 +82,7 @@ namespace kpp_rt.Уровень_доступа_Карт
                         comboBox2.Items.Add(i);
                     }
                 }
-            }
-            catch { }
+           
         }
 
         public void status_form()
@@ -175,13 +173,14 @@ namespace kpp_rt.Уровень_доступа_Карт
 
         private void button2_Click(object sender, EventArgs e)
         {
-            try
-            {
+           
                 if (textBox1.Text.Equals("") || textBox3.Text.Equals("") || comboBox1.Text.Equals("") || comboBox2.Text.Equals(""))
                 {
                     MessageBox.Show("Не все поля заполнены", "Ошибка");
                 }
                 else
+                {
+                try
                 {
                     int dopusk;
                     if (comboBox1.Text != "Да")
@@ -255,13 +254,13 @@ namespace kpp_rt.Уровень_доступа_Карт
                         cmd.Parameters.Add("@ID_Объекта", SqlDbType.Int);
                         cmd.Parameters["@ID_Объекта"].Value = id_object;
 
-                        cmd.Parameters.Add("@ID_Карты", SqlDbType.Int);
+                        cmd.Parameters.Add("@ID_Карты", SqlDbType.NVarChar);
                         cmd.Parameters["@ID_Карты"].Value = id_card;
 
                         cmd.Parameters.Add("@Допуск", SqlDbType.Int);
                         cmd.Parameters["@Допуск"].Value = dopusk;
 
-                        cmd.Parameters.Add("@Этаж", SqlDbType.NVarChar);
+                        cmd.Parameters.Add("@Этаж", SqlDbType.Int);
                         cmd.Parameters["@Этаж"].Value = comboBox2.Text;
 
 
@@ -279,10 +278,10 @@ namespace kpp_rt.Уровень_доступа_Карт
                         this.Hide();
                         form.Show();
                     }
-
                 }
-            }
-            catch { MessageBox.Show("Ошибка"); }
+                catch { MessageBox.Show("У данного сотрудника нет карты!", "Ошибка"); }
+                }
+           
         }
 
         //Поиск Клиента
@@ -368,8 +367,8 @@ namespace kpp_rt.Уровень_доступа_Карт
             connection1.Close();
 
 
-          
 
+           
 
             command1.Connection = connection1;
             connection1.Open();
@@ -384,7 +383,7 @@ namespace kpp_rt.Уровень_доступа_Карт
 
             }
             connection1.Close();
-
+           
         }
            
 
