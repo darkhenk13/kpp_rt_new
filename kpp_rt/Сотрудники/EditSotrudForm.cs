@@ -31,9 +31,8 @@ namespace kpp_rt.Сотрудники
 
         private void button2_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (textBox1.Text.Equals("") || textBox2.Text.Equals("") || textBox3.Text.Equals("") || textBox4.Text.Equals("") || comboBox1.Text.Equals("") || comboBox2.Text.Equals(""))
+            
+                if (textBox1.Text.Equals("") || maskedTextBox1.Text.Equals("") || dateTimePicker1.Text.Equals("") || textBox4.Text.Equals("") || comboBox1.Text.Equals("") || comboBox2.Text.Equals(""))
                 {
                     MessageBox.Show("Заполните все поля", "Ошибка");
                 }
@@ -67,14 +66,15 @@ namespace kpp_rt.Сотрудники
                         string t1 = reader2[1].ToString();
                     }
                     connection1.Close();
-                    //Должность
+                //Должность
 
 
 
-
+                
                     command1.Connection = connection1;
-                    command1.CommandText = @"UPDATE ПерссональныеДанныеСотрудника SET ФИО='" + textBox1.Text + "', Номер_телефона='" + textBox2.Text + "', Дата_Рождения='" + textBox3.Text + "'  WHERE ID_ПерснСотрудника=" + id_pers + "";
                     connection1.Open();
+                    command1.CommandText = @"UPDATE ПерссональныеДанныеСотрудника SET ФИО='" + textBox1.Text + "', Номер_телефона='" + maskedTextBox1.Text + "', Дата_Рождения='" + dateTimePicker1.Text + "'  WHERE ID_ПерснСотрудника=" + id_pers + "";
+                    
                     command1.ExecuteNonQuery();
                     connection1.Close();
 
@@ -100,8 +100,8 @@ namespace kpp_rt.Сотрудники
                     this.Hide();
                     form.Show();
                 }
-            }
-            catch { MessageBox.Show("", "Ошибка"); }
+            //}
+            //catch { MessageBox.Show("", "Ошибка"); }
 
 
         }
@@ -149,8 +149,8 @@ namespace kpp_rt.Сотрудники
             {
                 id_pers = reader[0].ToString();
                 textBox1.Text = reader[1].ToString();
-                textBox2.Text = reader[2].ToString();
-                textBox3.Text = reader[3].ToString();
+                maskedTextBox1.Text = reader[2].ToString();
+                dateTimePicker1.Text = reader[3].ToString();
             }
             connection.Close();
 
@@ -249,7 +249,7 @@ namespace kpp_rt.Сотрудники
             
             while (reader.Read())
             {
-                id_pers = reader[0].ToString();
+                id_otdel = reader[0].ToString();
                 comboBox2.Items.Add(reader[1].ToString());              
             }
             connection.Close();
@@ -270,7 +270,7 @@ namespace kpp_rt.Сотрудники
 
             while (reader.Read())
             {
-                id_pers = reader[0].ToString();
+                id_dolz = reader[0].ToString();
                 comboBox1.Items.Add(reader[1].ToString());
             }
             connection.Close();

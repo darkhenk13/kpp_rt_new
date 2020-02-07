@@ -266,7 +266,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "AdminForm";
-            this.Text = " ";
+            this.Text = " Панель Администратора";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdminForm_FormClosing);
             this.Load += new System.EventHandler(this.AdminForm_Load);
             this.tabControl1.ResumeLayout(false);

@@ -40,6 +40,7 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // textBox1
@@ -146,11 +147,22 @@
             this.maskedTextBox2.Size = new System.Drawing.Size(195, 20);
             this.maskedTextBox2.TabIndex = 15;
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(12, 150);
+            this.dateTimePicker1.MinDate = new System.DateTime(1950, 1, 1, 0, 0, 0, 0);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(195, 20);
+            this.dateTimePicker1.TabIndex = 16;
+            this.dateTimePicker1.Value = new System.DateTime(2020, 2, 7, 0, 0, 0, 0);
+            // 
             // NewSotrudForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(229, 345);
+            this.ClientSize = new System.Drawing.Size(230, 345);
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.maskedTextBox2);
             this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.comboBox2);
@@ -186,5 +198,6 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.MaskedTextBox maskedTextBox2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

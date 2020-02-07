@@ -69,7 +69,7 @@ namespace kpp_rt
         {
             try
             {
-                if (textBox1.Text.Equals("") || maskedTextBox2.Text.Equals("") || maskedTextBox1.Text.Equals("") || comboBox1.Text.Equals("") || comboBox2.Text.Equals("") )
+                if (textBox1.Text.Equals("") || maskedTextBox2.Text.Equals("") || dateTimePicker1.Text.Equals("") || comboBox1.Text.Equals("") || comboBox2.Text.Equals("") )
                {
                     MessageBox.Show("Заполните все поля!", "Ошибка");
                 }
@@ -111,7 +111,7 @@ namespace kpp_rt
                     cmd.Parameters["@Номер_телефона"].Value = maskedTextBox2.Text;
 
                     cmd.Parameters.Add("@Дата_Рождения", SqlDbType.NVarChar);
-                    cmd.Parameters["@Дата_Рождения"].Value = maskedTextBox1.Text;
+                    cmd.Parameters["@Дата_Рождения"].Value = dateTimePicker1.Text;
 
                     cmd.ExecuteNonQuery();
                     cmd.CommandText = "SELECT @@IDENTITY";
@@ -130,7 +130,7 @@ namespace kpp_rt
                     cmd.Parameters["@ID_ПерснСотрудника"].Value = lastId;
 
                     cmd.Parameters.Add("@Дата_Регистрации_Сотрудника", SqlDbType.NVarChar);
-                    cmd.Parameters["@Дата_Регистрации_Сотрудника"].Value = DateTime.Now.ToString("dd MMMM yyyy | HH:mm:ss");
+                    cmd.Parameters["@Дата_Регистрации_Сотрудника"].Value = DateTime.Now.ToString("dd.MM.yyyy");
 
                     cmd.ExecuteNonQuery();
                     tran.Commit(); // Потвержение транзакции

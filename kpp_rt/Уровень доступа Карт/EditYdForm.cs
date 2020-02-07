@@ -93,7 +93,7 @@ namespace kpp_rt.Уровень_доступа_Карт
             //command1.Connection = connection1;
             //connection1.Open();
             //command1.CommandText = "SELECT ID_Объекта, Этаж";
-
+             
             //SqlDataReader reader1 = command1.ExecuteReader();
 
             //while (reader1.Read())

@@ -42,6 +42,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // label1
@@ -73,14 +75,14 @@
             // 
             this.textBox2.Location = new System.Drawing.Point(9, 150);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(211, 20);
+            this.textBox2.Size = new System.Drawing.Size(166, 20);
             this.textBox2.TabIndex = 3;
             // 
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(9, 206);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(211, 20);
+            this.textBox3.Size = new System.Drawing.Size(177, 20);
             this.textBox3.TabIndex = 4;
             // 
             // label3
@@ -163,11 +165,31 @@
             this.label6.TabIndex = 14;
             this.label6.Text = "Дата Регистрации";
             // 
+            // maskedTextBox1
+            // 
+            this.maskedTextBox1.Location = new System.Drawing.Point(9, 150);
+            this.maskedTextBox1.Mask = "+7(000)-000-00-00";
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(208, 20);
+            this.maskedTextBox1.TabIndex = 15;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(9, 206);
+            this.dateTimePicker1.MinDate = new System.DateTime(1950, 1, 1, 0, 0, 0, 0);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(205, 20);
+            this.dateTimePicker1.TabIndex = 16;
+            this.dateTimePicker1.Value = new System.DateTime(2020, 2, 7, 0, 0, 0, 0);
+            // 
             // EditSotrudForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(261, 408);
+            this.ClientSize = new System.Drawing.Size(246, 408);
+            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label5);
@@ -207,5 +229,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

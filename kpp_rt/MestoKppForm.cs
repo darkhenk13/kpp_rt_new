@@ -23,6 +23,8 @@ namespace kpp_rt
 
         private void MestoKppForm_Load(object sender, EventArgs e)
         {
+            textBox1.Enabled = false;
+
             if (k == 1)
             {
                 textBox1.Text = arr[0] + ", " + arr[1] + ", " + arr[2] + ", " + arr[3];
