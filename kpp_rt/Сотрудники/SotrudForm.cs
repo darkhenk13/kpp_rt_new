@@ -26,6 +26,8 @@ namespace kpp_rt
         public string[] arr_del = new string[6];
         private void SotrudForm_Load(object sender, EventArgs e)
         {
+            
+
             // форма по центру
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
                 (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
@@ -84,8 +86,17 @@ JOIN Должность ON Сотрудники.ID_Должность = Долж
         private void SotrudForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             OperatorForm op = new OperatorForm();
-            this.Hide();
-            op.Show();
+            AdminForm form = new AdminForm();
+            if (Properties.Settings.Default.admin_form == "Admin")
+            {    
+                this.Hide();
+                form.Show();
+            }
+            else
+            {
+                this.Hide();
+                op.Show();
+            }        
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)

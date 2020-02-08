@@ -338,8 +338,18 @@ JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_�
         private void KlientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             OperatorForm form = new OperatorForm();
-            this.Hide();
-            form.Show();
+            AdminForm form1 = new AdminForm();
+            if (Properties.Settings.Default.admin_form == "Admin")
+            {
+                this.Hide();
+                form1.Show();
+            }
+            else
+            {
+                
+                this.Hide();
+                form.Show();
+            }
         }
     }
 }

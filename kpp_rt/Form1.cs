@@ -121,6 +121,8 @@ WHERE ПользователиПрограммы.login = '" + textBox1.Text + "'
         {
             Properties.Settings.Default.users =  "";
             Properties.Settings.Default.id = "";
+            Properties.Settings.Default.admin_form = "";
+
             Properties.Settings.Default.Save();
 
             // форма по центру

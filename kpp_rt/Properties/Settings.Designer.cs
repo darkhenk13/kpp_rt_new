@@ -166,5 +166,17 @@ namespace kpp_rt.Properties {
                 this["status_comport"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string admin_form {
+            get {
+                return ((string)(this["admin_form"]));
+            }
+            set {
+                this["admin_form"] = value;
+            }
+        }
     }
 }

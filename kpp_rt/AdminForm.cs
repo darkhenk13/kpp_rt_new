@@ -32,6 +32,10 @@ namespace kpp_rt
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
                 (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
 
+            Properties.Settings.Default.admin_form = "Admin";
+
+            Properties.Settings.Default.Save();
+
 
 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;

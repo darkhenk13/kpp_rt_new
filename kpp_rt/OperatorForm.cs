@@ -28,6 +28,13 @@ namespace kpp_rt
 
         private void OperatorForm_Load(object sender, EventArgs e)
         {
+
+            //toolStripMenuItem9.FlatAppearance.BorderSize = 0;
+            //toolStripMenuItem9.FlatStyle = FlatStyle.Flat;
+            
+            //960; 650
+            this.MinimumSize = new System.Drawing.Size(960, 650);
+
             radioButton1.Checked = true;
             //radioButton1.Checked = true;
             toolStripMenuItem1.Visible = false;
@@ -51,9 +58,9 @@ namespace kpp_rt
 
 
         }
-       private void datagrid_1()
+        private void datagrid_1()
         {
-          
+
         }
 
         // работа com port
@@ -78,10 +85,10 @@ namespace kpp_rt
                 StopBits stopbits = (StopBits)Enum.Parse(typeof(StopBits), "One");
                 serialport_connect(port, baudrate, parity, databits, stopbits);
                 //MessageBox.Show("Включено");
-            } 
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Ошибка работы: ");            
+                MessageBox.Show(ex.ToString(), "Ошибка работы: ");
             }
         }
 
@@ -126,12 +133,12 @@ namespace kpp_rt
             if (reader.HasRows)
             {
 
-             while (reader.Read()) {
-                idcard = reader[0].ToString();
-                id_sotrud = reader[1].ToString();}
+                while (reader.Read()) {
+                    idcard = reader[0].ToString();
+                    id_sotrud = reader[1].ToString(); }
 
 
-                
+
             }
             else
             {
@@ -178,7 +185,7 @@ namespace kpp_rt
 
             DateTime dt = DateTime.Now;
 
-           
+
 
             if (status_sotrud != "true")
             {
@@ -329,6 +336,8 @@ ORDER BY УчетПосещений.ID_УчетПосещений DESC
             SqlDataAdapter adap = new SqlDataAdapter();
             DataTable dt = new DataTable();
 
+
+
             command.Connection = connection;
             command.CommandText = @"SELECT 
             	УчетПосещений.Время, 
@@ -369,7 +378,7 @@ ORDER BY УчетПосещений.ID_УчетПосещений DESC
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
+
 
         }
 
@@ -411,7 +420,7 @@ ORDER BY УчетПосещений.ID_УчетПосещений DESC
             Form1 form = new Form1();
             this.Hide();
             form.Show();
-            
+
 
 
         }
@@ -479,6 +488,13 @@ ORDER BY УчетПосещений.ID_УчетПосещений DESC
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
+            int rowsCount = dataGridView1.Rows.Count;
+            for (int i = 0; i < rowsCount; i++)
+            {
+                dataGridView1.Rows.Remove(dataGridView1.Rows[0]);
+            }
+            dataGridView1.DataSource = null;
+            
             BeginInvoke(new InvokeDelegate(InvokeMethod));
         }
 
@@ -515,11 +531,121 @@ ORDER BY УчетПосещений.ID_УчетПосещений DESC
 
 
         }
+
+        private void toolStripTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked == true)
+            {
+                if (toolStripTextBox1.Text == "")
+                {
+                    //dataGridView1.Rows.Clear();
+                    //dataGridView1.Columns.Clear();
+                    BeginInvoke(new InvokeDelegate(InvokeMethod));
+                }
+                else
+                {
+                    searh_btton();
+                }
+            }
+            else if (radioButton2.Checked == true)
+            {
+                
+            }
+            else if (radioButton3.Checked == true)
+            {
+                if (toolStripTextBox1.Text == "")
+                {
+                    BeginInvoke(new InvokeDelegate(InvokeKlient));
+                }
+                else 
+                {
+                    search_klient();
+                }
+            }
+            else { }
+        }
+        public void search_klient()
+        {
+            try {
+                SqlConnection connection = new SqlConnection(Form1.connectString);
+                SqlCommand command = new SqlCommand();
+                DataSet ds = new DataSet();
+                SqlDataAdapter adap = new SqlDataAdapter();
+                DataTable dt = new DataTable();
+
+                command.Connection = connection;
+                command.CommandText = @"SELECT 
+            	УчетПосещений.Время, 
+            	УчетПосещений.Дата, 
+            	CASE WHEN УчетПосещений.Статус='true' THEN 'Вошел' ELSE 'Вышел' END AS [Статус],
+            	ПерсональныеДанныеКлиентов.ФИО AS [ФИО Клиента]
+            FROM УчетПосещений
+             JOIN Клиенты ON УчетПосещений.ID_Клиента = Клиенты.ID_Клиента 
+            JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_ПерснДанныеКлиента = ПерсональныеДанныеКлиентов.ID_ПерснДаннКлиента
+           WHERE ПерсональныеДанныеКлиентов.ФИО like '%" + toolStripTextBox1.Text + "%'" + "ORDER BY УчетПосещений.ID_УчетПосещений DESC"; ;
+                connection.Open();
+                adap.SelectCommand = command;
+                adap.Fill(ds);
+                dt = ds.Tables[0];
+                dataGridView1.DataSource = dt;
+
+
+
+                connection.Close();
+            }
+            catch { MessageBox.Show("Ошибка"); }
+
+        }
+
+
+        public void searh_btton()
+        {
+            try
+            {
+                SqlConnection connection = new SqlConnection(Form1.connectString);
+                SqlCommand command = new SqlCommand();
+                DataSet ds = new DataSet();
+                SqlDataAdapter adap = new SqlDataAdapter();
+                DataTable dt = new DataTable();
+
+                command.Connection = connection;
+                command.CommandText = @"SELECT
+
+    УчетПосещений.Время, 
+	УчетПосещений.Дата, 
+	CASE WHEN УчетПосещений.Статус = 'true' THEN 'Вошел' ELSE 'Вышел' END AS[Статус],
+      ПерссональныеДанныеСотрудника.ФИО AS[ФИО Сотрудника],
+      ПерсональныеДанныеКлиентов.ФИО AS[ФИО Клиента]
+FROM УчетПосещений
+LEFT JOIN Карта ON УчетПосещений.ID_Карты = Карта.ID_Карты
+LEFT JOIN Сотрудники ON Карта.ID_Сотрудника = Сотрудники.ID_Сотрудника
+LEFT JOIN ПерссональныеДанныеСотрудника ON Сотрудники.ID_ПерснСотрудника = ПерссональныеДанныеСотрудника.ID_ПерснСотрудника
+LEFT JOIN Клиенты ON УчетПосещений.ID_Клиента = Клиенты.ID_Клиента
+LEFT JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_ПерснДанныеКлиента = ПерсональныеДанныеКлиентов.ID_ПерснДаннКлиента
+WHERE ПерсональныеДанныеКлиентов.ФИО like '%" + toolStripTextBox1.Text + "%' OR ПерссональныеДанныеСотрудника.ФИО like '%" + toolStripTextBox1.Text + "%' " + "ORDER BY УчетПосещений.ID_УчетПосещений DESC"; ;
+                connection.Open();
+                adap.SelectCommand = command;
+                adap.Fill(ds);
+                dt = ds.Tables[0];
+                dataGridView1.DataSource = dt;
+
+
+
+                connection.Close();
+            }
+            catch { MessageBox.Show("Ошибка"); }
+        }
+           
+        
+
+        private void toolStripTextBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem9_Click(object sender, EventArgs e)
+        {
+
+        }
     }
-
-
-   
-
-
-
 }
