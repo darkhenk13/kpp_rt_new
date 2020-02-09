@@ -51,8 +51,9 @@ namespace kpp_rt.Уровень_доступа_Карт
             SqlDataAdapter adap = new SqlDataAdapter();
             DataTable dt = new DataTable();      
             command.Connection = connection;
+            //CASE WHEN УровеньДоступа.Допуск='1' THEN 'Разрешен' ELSE 'Запрещен' END AS [Допуск], 
             command.CommandText = @"SELECT 
-            	CASE WHEN УровеньДоступа.Допуск='1' THEN 'Разрешен' ELSE 'Запрещен' END AS [Допуск], 
+            	УровеньДоступа.Допуск,
             	УровеньДоступа.Этаж AS [Этаж],
             	Объект.Город,
             	Объект.Улица,
@@ -104,6 +105,17 @@ namespace kpp_rt.Уровень_доступа_Карт
                 yrdost_id();
                 string id1 = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString();
 
+               
+                if (arr[7] == "")
+                {
+                    MessageBox.Show("Пусто");
+                }
+                else
+                {
+                   
+                }
+
+
                 DialogResult dialogResult = MessageBox.Show("Удалить запись?", "Удалить", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
@@ -134,6 +146,13 @@ namespace kpp_rt.Уровень_доступа_Карт
             catch { MessageBox.Show("Ошибка"); }
 
 }
+
+        void yrdost_delete_sotrud()
+        { 
+        // персональные данные
+
+
+        }
 
 
         // ID Персональные данные клиента и ID клиента

@@ -58,6 +58,7 @@ namespace kpp_rt
 
         private void button2_Click(object sender, EventArgs e)
         {
+           searh_object();
             if (k == 1)
             {
                 Properties.Settings.Default.object_name = arr[0] + ", " + arr[1] + ", " + arr[2] + ", " + arr[3];

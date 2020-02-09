@@ -19,6 +19,8 @@ namespace kpp_rt.Клиенты
             InitializeComponent();
         }
         string connectString = ConfigurationManager.ConnectionStrings["SqlBD"].ConnectionString;
+        public string id_yrdostupda;
+        public int dost;
 
         private void KlientForm_Load(object sender, EventArgs e)
         {
@@ -193,6 +195,7 @@ JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_�
         {
             try
             {
+                dost = 0;
                 for (int i = 0; i < 4; i++)
                 {
                     klient[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
@@ -201,60 +204,73 @@ JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_�
                 search_persid();
                 search_klientid();
                 search_status();
-                SqlConnection conn = new SqlConnection(connectString);
-                SqlCommand cmd = new SqlCommand();
-                string dates = DateTime.Now.ToString("dd-MM-yyyy");
+                yrdostupa();
 
-                string times = DateTime.Now.ToString("HH:mm:ss");
 
-                if (status_klienta != "true")
+
+                if (dost == 1)
                 {
 
-                    conn.Open();
-                    cmd.Connection = conn;
-                    cmd.CommandText = @"INSERT INTO[УчетПосещений] (Время, Дата, Статус, ID_Клиента) values (@Время, @Дата, @Статус, @ID_Клиента)";
+                    SqlConnection conn = new SqlConnection(connectString);
+                    SqlCommand cmd = new SqlCommand();
+                    string dates = DateTime.Now.ToString("dd-MM-yyyy");
 
-                    cmd.Parameters.Add("@Время", SqlDbType.NVarChar);
-                    cmd.Parameters["@Время"].Value = times;
+                    string times = DateTime.Now.ToString("HH:mm:ss");
 
-                    cmd.Parameters.Add("@Дата", SqlDbType.NVarChar);
-                    cmd.Parameters["@Дата"].Value = dates;
+                    if (status_klienta != "true")
+                    {
 
-                    cmd.Parameters.Add("@Статус", SqlDbType.NVarChar);
-                    cmd.Parameters["@Статус"].Value = "true";
+                        conn.Open();
+                        cmd.Connection = conn;
+                        cmd.CommandText = @"INSERT INTO[УчетПосещений] (Время, Дата, Статус, ID_Клиента) values (@Время, @Дата, @Статус, @ID_Клиента)";
 
-                    cmd.Parameters.Add("@ID_Клиента", SqlDbType.NVarChar);
-                    cmd.Parameters["@ID_Клиента"].Value = id_klient;
+                        cmd.Parameters.Add("@Время", SqlDbType.NVarChar);
+                        cmd.Parameters["@Время"].Value = times;
 
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
+                        cmd.Parameters.Add("@Дата", SqlDbType.NVarChar);
+                        cmd.Parameters["@Дата"].Value = dates;
 
+                        cmd.Parameters.Add("@Статус", SqlDbType.NVarChar);
+                        cmd.Parameters["@Статус"].Value = "true";
+
+                        cmd.Parameters.Add("@ID_Клиента", SqlDbType.NVarChar);
+                        cmd.Parameters["@ID_Клиента"].Value = id_klient;
+
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
+
+                    }
+                    else
+                    {
+
+                        conn.Open();
+                        cmd.Connection = conn;
+                        cmd.CommandText = @"INSERT INTO[УчетПосещений] (Время, Дата, Статус, ID_Клиента) values (@Время, @Дата, @Статус, @ID_Клиента)";
+
+                        cmd.Parameters.Add("@Время", SqlDbType.NVarChar);
+                        cmd.Parameters["@Время"].Value = times;
+
+                        cmd.Parameters.Add("@Дата", SqlDbType.NVarChar);
+                        cmd.Parameters["@Дата"].Value = dates;
+
+                        cmd.Parameters.Add("@Статус", SqlDbType.NVarChar);
+                        cmd.Parameters["@Статус"].Value = "false";
+
+                        cmd.Parameters.Add("@ID_Клиента", SqlDbType.NVarChar);
+                        cmd.Parameters["@ID_Клиента"].Value = id_klient;
+
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
+                    }
+
+
+                    MessageBox.Show("Клиент добавлен в учет посещений", "Добавление новой записи", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 }
+
                 else
                 {
-
-                    conn.Open();
-                    cmd.Connection = conn;
-                    cmd.CommandText = @"INSERT INTO[УчетПосещений] (Время, Дата, Статус, ID_Клиента) values (@Время, @Дата, @Статус, @ID_Клиента)";
-
-                    cmd.Parameters.Add("@Время", SqlDbType.NVarChar);
-                    cmd.Parameters["@Время"].Value = times;
-
-                    cmd.Parameters.Add("@Дата", SqlDbType.NVarChar);
-                    cmd.Parameters["@Дата"].Value = dates;
-
-                    cmd.Parameters.Add("@Статус", SqlDbType.NVarChar);
-                    cmd.Parameters["@Статус"].Value = "false";
-
-                    cmd.Parameters.Add("@ID_Клиента", SqlDbType.NVarChar);
-                    cmd.Parameters["@ID_Клиента"].Value = id_klient;
-
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
+                    MessageBox.Show("Доступа нет!", "Внимание");
                 }
-
-
-                MessageBox.Show("Клиент добавлен в учет посещений", "Добавление новой записи", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
             catch { MessageBox.Show("Ошибка"); }
 
@@ -291,6 +307,47 @@ JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_�
 
             }
             connection.Close();
+        }
+
+        void yrdostupa()
+        {
+            
+            SqlConnection connection = new SqlConnection(connectString);
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+            connection.Open();
+            command.CommandText = "SELECT ID_Объекта, Допуск FROM УровеньДоступа WHERE ID_Клиента='" + id_klient + "'";
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    if (reader[0].ToString() == Properties.Settings.Default.id_object)
+                    {
+                        if (reader[1].ToString() == "1")
+                        {
+                            dost = 1;
+                        }
+                        else
+                        {
+                            
+                        }
+                    }
+                    else
+                    {
+   
+                    }                
+                }
+                connection.Close();
+
+            }
+            else
+            {
+              
+            }
+                
+           
         }
 
         void search_klientid()

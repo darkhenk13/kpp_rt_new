@@ -25,13 +25,13 @@ namespace kpp_rt
         {
             InitializeComponent();
         }
-
+        public int dost;
         private void OperatorForm_Load(object sender, EventArgs e)
         {
 
             //toolStripMenuItem9.FlatAppearance.BorderSize = 0;
             //toolStripMenuItem9.FlatStyle = FlatStyle.Flat;
-            
+
             //960; 650
             this.MinimumSize = new System.Drawing.Size(960, 650);
 
@@ -68,6 +68,8 @@ namespace kpp_rt
         public string idcard;
         public string id_sotrud;
         public string status_sotrud;
+        public string id_block;
+        public string block;
         private Thread myThread;
         public delegate void InvokeDelegate();
 
@@ -79,6 +81,7 @@ namespace kpp_rt
                 Properties.Settings.Default.local_city = "text";
 
                 String port = "COM2";
+
                 int baudrate = 9600;
                 Parity parity = (Parity)Enum.Parse(typeof(Parity), "None");
                 int databits = 8;
@@ -122,38 +125,88 @@ namespace kpp_rt
         {
             //MessageBox.Show(idpool,"Сообщение");
 
+            //try
+            //{
 
-            SqlConnection connection = new SqlConnection(Form1.connectString);
-            SqlCommand command = new SqlCommand();
-            command.Connection = connection;
-            connection.Open();
-            command.CommandText = "SELECT ID_Карты, ID_Сотрудника FROM Карта WHERE ID_Карты='" + idpool + "'";
-            SqlDataReader reader = command.ExecuteReader();
+                SqlConnection connection = new SqlConnection(Form1.connectString);
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                connection.Open();
+                command.CommandText = "SELECT ID_Карты, ID_Сотрудника FROM Карта WHERE ID_Карты='" + idpool + "'";
+                SqlDataReader reader = command.ExecuteReader();
 
-            if (reader.HasRows)
-            {
+                if (reader.HasRows)
+                {
 
-                while (reader.Read()) {
-                    idcard = reader[0].ToString();
-                    id_sotrud = reader[1].ToString(); }
+                    while (reader.Read())
+                    {
+                        idcard = reader[0].ToString();
+                        id_sotrud = reader[1].ToString();
+                    }
 
 
 
-            }
-            else
-            {
-                MessageBox.Show("Ошибка карты!");
-            }
-            connection.Close();
+                }
+                else
+                {
 
-            search_status();
-            sotrud_create_ych(idcard);
-
+                }
+                connection.Close();
+               
+                yrdostupa();
+                card_block();
+                search_status();
+                sotrud_create_ych(idcard);
+            //}
+            //catch { }
 
 
 
 
         }
+
+        void yrdostupa()
+        {
+
+            SqlConnection connection = new SqlConnection(Form1.connectString);
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+            connection.Open();
+            command.CommandText = "SELECT ID_Объекта, Допуск FROM УровеньДоступа WHERE ID_Карты='" + idcard + "'";
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    if (reader[0].ToString() == Properties.Settings.Default.id_object)
+                    {
+                        if (reader[1].ToString() == "1")
+                        {
+                            dost = 1;
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else
+                    {
+
+                    }
+                }
+                connection.Close();
+
+            }
+            else
+            {
+
+            }
+           
+
+        }
+
         void search_status()
         {
 
@@ -167,77 +220,123 @@ namespace kpp_rt
             while (reader.Read())
             {
                 status_sotrud = reader[0].ToString();
-                string id_klienta = reader[1].ToString();
+                string name = reader[1].ToString();
+                //id_block = reader[2].ToString();
+            }
+            connection.Close();
+        }
 
 
+        void card_block()
+        {
+            SqlConnection connection = new SqlConnection(Form1.connectString);
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+            connection.Open();
+            command.CommandText = "SELECT ID_ЗаблКарта FROM Карта WHERE ID_Карты='" + idcard + "'";
+            SqlDataReader reader2 = command.ExecuteReader();
+
+            while (reader2.Read())
+            {
+                id_block = reader2[0].ToString();
+            }
+            connection.Close();
+
+            command.Connection = connection;
+            connection.Open();
+            command.CommandText = "SELECT Блокировка FROM ЗаблокированныеКарты WHERE ID_ЗаблКарта='" + id_block + "'";
+            SqlDataReader reader1 = command.ExecuteReader();
+
+            while (reader1.Read())
+            {
+                block = reader1[0].ToString();
 
             }
             connection.Close();
+
         }
 
         private void sotrud_create_ych(string idsot)
         {
 
-            SqlConnection conn = new SqlConnection(Form1.connectString);
-            SqlCommand cmd = new SqlCommand();
-            string dates = DateTime.Now.ToString("dd-MM-yyyy");
-            string times = DateTime.Now.ToString("HH:mm:ss");
-
-            DateTime dt = DateTime.Now;
-
-
-
-            if (status_sotrud != "true")
+            if (block != "0")
             {
-
-                conn.Open();
-                cmd.Connection = conn;
-                cmd.CommandText = @"INSERT INTO[УчетПосещений] (Время, Дата, Статус, ID_Карты) values (@Время, @Дата, @Статус, @ID_Карты)";
-
-                cmd.Parameters.Add("@Время", SqlDbType.NVarChar);
-                cmd.Parameters["@Время"].Value = times;
-
-                cmd.Parameters.Add("@Дата", SqlDbType.NVarChar);
-                cmd.Parameters["@Дата"].Value = "04.02.2020";
-                //cmd.Parameters["@Дата"].Value = dates;
-
-                cmd.Parameters.Add("@Статус", SqlDbType.NVarChar);
-                cmd.Parameters["@Статус"].Value = "true";
-
-                cmd.Parameters.Add("@ID_Карты", SqlDbType.NVarChar);
-                cmd.Parameters["@ID_Карты"].Value = idsot;
-
-                cmd.ExecuteNonQuery();
-                conn.Close();
-
+                MessageBox.Show("Карта заблокирована!", "Внимание");
             }
             else
             {
 
-                conn.Open();
-                cmd.Connection = conn;
-                cmd.CommandText = @"INSERT INTO[УчетПосещений] (Время, Дата, Статус, ID_Карты) values (@Время, @Дата, @Статус, @ID_Карты)";
 
-                cmd.Parameters.Add("@Время", SqlDbType.NVarChar);
-                cmd.Parameters["@Время"].Value = times;
 
-                cmd.Parameters.Add("@Дата", SqlDbType.NVarChar);
-                //cmd.Parameters["@Дата"].Value = "04.02.2020";
-                cmd.Parameters["@Дата"].Value = dates;
+                if (dost == 1)
+                {
 
-                cmd.Parameters.Add("@Статус", SqlDbType.NVarChar);
-                cmd.Parameters["@Статус"].Value = "false";
 
-                cmd.Parameters.Add("@ID_Карты", SqlDbType.NVarChar);
-                cmd.Parameters["@ID_Карты"].Value = idsot;
 
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                    SqlConnection conn = new SqlConnection(Form1.connectString);
+                    SqlCommand cmd = new SqlCommand();
+                    string dates = DateTime.Now.ToString("dd-MM-yyyy");
+                    string times = DateTime.Now.ToString("HH:mm:ss");
+
+                    DateTime dt = DateTime.Now;
+
+
+
+                    if (status_sotrud != "true")
+                    {
+
+                        conn.Open();
+                        cmd.Connection = conn;
+                        cmd.CommandText = @"INSERT INTO[УчетПосещений] (Время, Дата, Статус, ID_Карты) values (@Время, @Дата, @Статус, @ID_Карты)";
+
+                        cmd.Parameters.Add("@Время", SqlDbType.NVarChar);
+                        cmd.Parameters["@Время"].Value = times;
+
+                        cmd.Parameters.Add("@Дата", SqlDbType.NVarChar);
+                        cmd.Parameters["@Дата"].Value = "04.02.2020";
+                        //cmd.Parameters["@Дата"].Value = dates;
+
+                        cmd.Parameters.Add("@Статус", SqlDbType.NVarChar);
+                        cmd.Parameters["@Статус"].Value = "true";
+
+                        cmd.Parameters.Add("@ID_Карты", SqlDbType.NVarChar);
+                        cmd.Parameters["@ID_Карты"].Value = idsot;
+
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
+
+                    }
+                    else
+                    {
+
+                        conn.Open();
+                        cmd.Connection = conn;
+                        cmd.CommandText = @"INSERT INTO[УчетПосещений] (Время, Дата, Статус, ID_Карты) values (@Время, @Дата, @Статус, @ID_Карты)";
+
+                        cmd.Parameters.Add("@Время", SqlDbType.NVarChar);
+                        cmd.Parameters["@Время"].Value = times;
+
+                        cmd.Parameters.Add("@Дата", SqlDbType.NVarChar);
+                        //cmd.Parameters["@Дата"].Value = "04.02.2020";
+                        cmd.Parameters["@Дата"].Value = dates;
+
+                        cmd.Parameters.Add("@Статус", SqlDbType.NVarChar);
+                        cmd.Parameters["@Статус"].Value = "false";
+
+                        cmd.Parameters.Add("@ID_Карты", SqlDbType.NVarChar);
+                        cmd.Parameters["@ID_Карты"].Value = idsot;
+
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
+                    }
+                    BeginInvoke(new InvokeDelegate(InvokeMethod));
+                }
+                else
+                {
+                    MessageBox.Show("У сотрудника нет доступа!", "Ошибка");
+                }
             }
-
-
-            BeginInvoke(new InvokeDelegate(InvokeMethod));
-        }
+}
 
 
         private void Invoke_Click(object sender, EventArgs e)
