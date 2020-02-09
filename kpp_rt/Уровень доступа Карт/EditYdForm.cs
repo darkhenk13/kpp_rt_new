@@ -40,7 +40,7 @@ namespace kpp_rt.Уровень_доступа_Карт
 
         private void EditYdForm_Load(object sender, EventArgs e)
         {
-            
+            //combobox_();
             textBox1.Enabled = false;
             textBox2.Enabled = false;
             // форма по центру
@@ -68,7 +68,7 @@ namespace kpp_rt.Уровень_доступа_Карт
                 
             }
             else
-            {
+            {            
                 // сотрудник
                 label1.Text = "Сотрудник";
                 textBox1.Text = arr1[6];
@@ -156,10 +156,40 @@ namespace kpp_rt.Уровень_доступа_Карт
         // уровень доступа ID
         private void YrDostupa()
         {
-          
+            //SqlConnection connection = new SqlConnection(Form1.connectString);
+            //SqlCommand command = new SqlCommand();
+
+            //command.Connection = connection;
+            //command.CommandText = "SELECTID_УрДоступа, Допуск, Этаж FROM УровеньДоступа WHERE ФИО=" + FIO + "";
+            //connection.Open();
+
+            //SqlDataReader reader = command.ExecuteReader();
+            //while (reader.Read())
+            //{
+            //    id_pers = reader[0].ToString();
+            //    string f = reader[1].ToString();
+            //}
+            //connection.Close();
+
         }
 
+        void combobox_()
+        {
+            //SqlConnection connection = new SqlConnection(Form1.connectString);
+            //SqlCommand command = new SqlCommand();
 
+            //command.Connection = connection;
+            //command.CommandText = @"SELECT Этаж FROM Объект WHERE ID_Объекта='" +  + "'";
+            //connection.Open();
+
+            //SqlDataReader reader = command.ExecuteReader();
+
+            //while (reader.Read())
+            //{
+            //    comboBox1.Items.Add(reader[0].ToString());
+            //}
+            //connection.Close();
+        }
 
 
 
@@ -172,13 +202,16 @@ namespace kpp_rt.Уровень_доступа_Карт
             form.Show();
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
 
+        }
 
-
-
-
-
-
-
+        private void button4_Click(object sender, EventArgs e)
+        {
+            EditYdForm form = new EditYdForm();
+            this.Hide();
+            form.Show();
+        }
     }
 }

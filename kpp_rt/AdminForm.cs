@@ -91,7 +91,7 @@ AND пп.ID_ПравДоступа = прав.ID_ПравДоступа";
             DataTable dt1 = new DataTable();
 
             command1.Connection = connection1;
-            command1.CommandText = @"SELECT Права_Доступа AS [Права доступа] FROM ПраваДоступа";
+            command1.CommandText = @"SELECT CASE WHEN Права_Доступа='1' THEN 'Администратор' ELSE 'Оператор' END AS [Права доступа] FROM ПраваДоступа";
             connection1.Open();
             adap1.SelectCommand = command1;
             adap1.Fill(ds1);

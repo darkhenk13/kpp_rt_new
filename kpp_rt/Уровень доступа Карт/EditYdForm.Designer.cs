@@ -129,6 +129,7 @@
             this.button2.TabIndex = 9;
             this.button2.Text = "Изменить";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -148,6 +149,7 @@
             this.button4.TabIndex = 11;
             this.button4.Text = "Выбрать";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // EditYdForm
             // 

@@ -334,6 +334,12 @@
     <Compile Include="Уровень доступа Карт\EditYdKlientForm.Designer.cs">
       <DependentUpon>EditYdKlientForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Уровень доступа Карт\EditYrObjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Уровень доступа Карт\EditYrObjectForm.Designer.cs">
+      <DependentUpon>EditYrObjectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Уровень доступа Карт\YrDostupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -483,6 +489,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Уровень доступа Карт\EditYdKlientForm.resx">
       <DependentUpon>EditYdKlientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Уровень доступа Карт\EditYrObjectForm.resx">
+      <DependentUpon>EditYrObjectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Уровень доступа Карт\YrDostupForm.resx">
       <DependentUpon>YrDostupForm.cs</DependentUpon>

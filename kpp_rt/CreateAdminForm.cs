@@ -157,8 +157,8 @@ namespace kpp_rt
                 cmd.Parameters.Add("@ID_Сотруднка", SqlDbType.Int);
                 cmd.Parameters["@ID_Сотруднка"].Value = id_sotr;
 
-                cmd.Parameters.Add("@ID_ПравДоступа", SqlDbType.Int);
-                cmd.Parameters["@ID_ПравДоступа"].Value = id_prav;
+                //cmd.Parameters.Add("@ID_ПравДоступа", SqlDbType.Int);
+                //cmd.Parameters["@ID_ПравДоступа"].Value =  ;
 
 
 
