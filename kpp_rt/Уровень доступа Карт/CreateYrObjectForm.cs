@@ -22,6 +22,11 @@ namespace kpp_rt.Уровень_доступа_Карт
         public string[] client1 = new string[4];
         public string[] sotrudnik1 = new string[4];
         public int status_radio1;
+        public int k;
+
+        //Edit
+        public string[] arr1 = new string[8];
+        public string[] arr_klient = new string[8];
 
         private void CreateYrObjectForm_Load(object sender, EventArgs e)
         {
@@ -63,20 +68,29 @@ namespace kpp_rt.Уровень_доступа_Карт
 
         private void button1_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 4; i++)
+            if (k == 1)
             {
-                object_table1[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+               
+            }
+            else 
+            
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    object_table1[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
+
+                }
+
+
+                CreateYrForm form = new CreateYrForm();
+                form.object_table = object_table1;
+                form.client = client1;
+                form.sotrudnik = sotrudnik1;
+                form.status_radio = status_radio1;
+                this.Hide();
+                form.Show();
 
             }
-           
-
-            CreateYrForm form = new CreateYrForm();
-            form.object_table = object_table1;
-            form.client = client1;
-            form.sotrudnik = sotrudnik1;
-            form.status_radio = status_radio1;
-            this.Hide();
-            form.Show();
 
         }
     }

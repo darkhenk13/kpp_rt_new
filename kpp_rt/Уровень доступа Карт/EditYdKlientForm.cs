@@ -68,12 +68,12 @@ JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_�
             {
                 arr_klient1[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
             }
-            EditYdForm form = new EditYdForm();
-            form.arr1 = arr2;
-            form.k = k1;
-            form.arr_kliient = arr_klient1;
-            this.Hide();
-            form.Show();
+            //EditYdForm form = new EditYdForm();
+            //form.arr1 = arr2;
+            //form.k = k1;
+            //form.arr_kliient = arr_klient1;
+            //this.Hide();
+            //form.Show();
         }
     }
 }

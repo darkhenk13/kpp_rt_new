@@ -53,7 +53,7 @@ namespace kpp_rt
 FROM Сотрудники 
 JOIN ПерссональныеДанныеСотрудника ON Сотрудники.ID_ПерснСотрудника = ПерссональныеДанныеСотрудника.ID_ПерснСотрудника
 JOIN Отделы ON Сотрудники.ID_Отдела = Отделы.ID_Отдела
-JOIN Должность ON Сотрудники.ID_Должность = Должность.ID_Должность";
+JOIN Должность ON Сотрудники.ID_Должность = Должность.ID_Должность" + " ORDER BY Сотрудники.ID_Сотрудника DESC";
             connection.Open();
             adap.SelectCommand = command;
             adap.Fill(ds);
@@ -211,8 +211,35 @@ JOIN Должность ON Сотрудники.ID_Должность = Долж
             
         
         }
-      
 
+        private void toolStripTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            SqlConnection connection = new SqlConnection(Form1.connectString);
+            SqlCommand command = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter adap = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+
+            command.Connection = connection;
+
+           
+            command.CommandText = @"SELECT Сотрудники.Дата_Регистрации_Сотрудника AS [Дата регистрации],
+ПерссональныеДанныеСотрудника.ФИО, 
+ПерссональныеДанныеСотрудника.Номер_телефона, 
+ПерссональныеДанныеСотрудника.Дата_Рождения, 
+Отделы.Отдел,
+Должность.Должность
+FROM Сотрудники 
+JOIN ПерссональныеДанныеСотрудника ON Сотрудники.ID_ПерснСотрудника = ПерссональныеДанныеСотрудника.ID_ПерснСотрудника
+JOIN Отделы ON Сотрудники.ID_Отдела = Отделы.ID_Отдела
+JOIN Должность ON Сотрудники.ID_Должность = Должность.ID_Должность
+           WHERE ПерссональныеДанныеСотрудника.ФИО like '%" + toolStripTextBox1.Text + "%' OR Отделы.Отдел like '%" + toolStripTextBox1.Text + "%' OR Должность.Должность like '%" + toolStripTextBox1.Text + "%'" + " ORDER BY Сотрудники.ID_Сотрудника DESC"; 
+            connection.Open();
+            adap.SelectCommand = command;
+            adap.Fill(ds);
+            dt = ds.Tables[0];
+            dataGridView1.DataSource = dt;
         }
+    }
     }
 

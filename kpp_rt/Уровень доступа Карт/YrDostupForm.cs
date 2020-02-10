@@ -53,7 +53,7 @@ namespace kpp_rt.Уровень_доступа_Карт
             command.Connection = connection;
             //CASE WHEN УровеньДоступа.Допуск='1' THEN 'Разрешен' ELSE 'Запрещен' END AS [Допуск], 
             command.CommandText = @"SELECT 
-            	УровеньДоступа.Допуск,
+            	CASE WHEN УровеньДоступа.Допуск='1' THEN 'Разрешен' ELSE 'Запрещен' END AS [Допуск],
             	УровеньДоступа.Этаж AS [Этаж],
             	Объект.Город,
             	Объект.Улица,
@@ -67,7 +67,7 @@ namespace kpp_rt.Уровень_доступа_Карт
             LEFT JOIN Сотрудники ON Карта.ID_Сотрудника = Сотрудники.ID_Сотрудника
             LEFT JOIN ПерссональныеДанныеСотрудника ON Сотрудники.ID_ПерснСотрудника = ПерссональныеДанныеСотрудника.ID_ПерснСотрудника
             LEFT JOIN Клиенты ON УровеньДоступа.ID_Клиента = Клиенты.ID_Клиента
-            LEFT JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_ПерснДанныеКлиента = ПерсональныеДанныеКлиентов.ID_ПерснДаннКлиента";
+            LEFT JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_ПерснДанныеКлиента = ПерсональныеДанныеКлиентов.ID_ПерснДаннКлиента" + " ORDER BY УровеньДоступа.ID_УрДоступа DESC";
             //command.CommandText = @"SELECT * FROM УровеньДоступа";
             connection.Open();
             adap.SelectCommand = command;
@@ -223,6 +223,43 @@ namespace kpp_rt.Уровень_доступа_Карт
             OperatorForm form = new OperatorForm();
             this.Hide();
             form.Show();
+        }
+
+        private void toolStripTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            SqlConnection connection = new SqlConnection(Form1.connectString);
+            SqlCommand command = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter adap = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+
+            command.Connection = connection;
+
+
+            command.CommandText = @" SELECT 
+            	УровеньДоступа.Допуск,
+            	УровеньДоступа.Этаж AS [Этаж],
+            	Объект.Город,
+            	Объект.Улица,
+                Объект.Здание,
+            	Объект.Этаж AS [Этажей],
+            	ПерссональныеДанныеСотрудника.ФИО AS [ФИО Сотрудника],
+            	ПерсональныеДанныеКлиентов.ФИО AS [ФИО Клиента]
+            FROM УровеньДоступа
+            LEFT JOIN Объект ON УровеньДоступа.ID_Объекта = Объект.ID_Объекта
+            LEFT JOIN Карта ON УровеньДоступа.ID_Карты = Карта.ID_Карты
+            LEFT JOIN Сотрудники ON Карта.ID_Сотрудника = Сотрудники.ID_Сотрудника
+            LEFT JOIN ПерссональныеДанныеСотрудника ON Сотрудники.ID_ПерснСотрудника = ПерссональныеДанныеСотрудника.ID_ПерснСотрудника
+            LEFT JOIN Клиенты ON УровеньДоступа.ID_Клиента = Клиенты.ID_Клиента
+            LEFT JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_ПерснДанныеКлиента = ПерсональныеДанныеКлиентов.ID_ПерснДаннКлиента
+WHERE ПерссональныеДанныеСотрудника.ФИО like '%" + toolStripTextBox1.Text + "%' OR ПерсональныеДанныеКлиентов.ФИО like '%"
++ toolStripTextBox1.Text + "%' OR Объект.Здание like '%" + toolStripTextBox1.Text + "%' OR Объект.Улица like '%" + toolStripTextBox1.Text 
++ "%' OR Объект.Этаж like '%" + toolStripTextBox1.Text + "%'" + " ORDER BY УровеньДоступа.ID_УрДоступа DESC";
+            connection.Open();
+            adap.SelectCommand = command;
+            adap.Fill(ds);
+            dt = ds.Tables[0];
+            dataGridView1.DataSource = dt;
         }
     }
 }

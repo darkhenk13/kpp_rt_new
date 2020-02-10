@@ -44,7 +44,7 @@ namespace kpp_rt.Объект
             DataTable dt = new DataTable();
 
             command.Connection = connection;
-            command.CommandText = @"SELECT Город, Улица, Здание, Этаж FROM Объект";
+            command.CommandText = @"SELECT Город, Улица, Здание, Этаж FROM Объект" + " ORDER BY ID_Объекта DESC";
             connection.Open();
             adap.SelectCommand = command;
             adap.Fill(ds);
@@ -156,6 +156,26 @@ namespace kpp_rt.Объект
             OperatorForm form = new OperatorForm();
             this.Hide();
             form.Show();
+        }
+
+        private void toolStripTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            SqlConnection connection = new SqlConnection(Form1.connectString);
+            SqlCommand command = new SqlCommand();
+            DataSet ds = new DataSet();
+            SqlDataAdapter adap = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+
+            command.Connection = connection;
+            
+
+            command.CommandText = @" SELECT Город, Улица, Здание, Этаж FROM Объект
+WHERE Город like '%" + toolStripTextBox1.Text + "%' OR Улица like '%" + toolStripTextBox1.Text + "%' OR Здание like '%" + toolStripTextBox1.Text + "%' OR Этаж like '%" + toolStripTextBox1.Text + "%'" + " ORDER BY ID_Объекта DESC";
+            connection.Open();
+            adap.SelectCommand = command;
+            adap.Fill(ds);
+            dt = ds.Tables[0];
+            dataGridView1.DataSource = dt;
         }
     }
 }
