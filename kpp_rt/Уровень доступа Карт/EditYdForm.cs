@@ -44,6 +44,12 @@ namespace kpp_rt.Уровень_доступа_Карт
 
         private void EditYdForm_Load(object sender, EventArgs e)
         {
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
+            this.MinimumSize = new System.Drawing.Size(280, 310);
+            this.MaximumSize = new System.Drawing.Size(280, 310);
+
             //combobox_();
             textBox1.Enabled = false;
             textBox2.Enabled = false;

@@ -35,6 +35,19 @@ namespace kpp_rt.Карта
 
         private void EditCardForm_Load(object sender, EventArgs e)
         {
+
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
+            this.MinimumSize = new System.Drawing.Size(300, 200);
+            this.MaximumSize = new System.Drawing.Size(300, 200);
+
+
+            // форма по центру
+            this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
+                (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
+
+
             textBox1.Enabled = false;
             textBox2.Enabled = false;
 

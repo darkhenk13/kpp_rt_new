@@ -65,6 +65,11 @@ JOIN Должность ON Сотрудники.ID_Должность = Долж
 
         private void button1_Click(object sender, EventArgs e)
         {
+          
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
             for (int i = 0; i < 4; i++)
             {
                 sotrudnik1[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();

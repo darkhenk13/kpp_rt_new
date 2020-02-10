@@ -29,11 +29,13 @@ namespace kpp_rt.Объект
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
                 (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
 
-            //for (int j = 0; j < 4; j++)
-            //{
-            //    MessageBox.Show(Convert.ToString(j), arr_object1[j]);
 
-            //}
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
+            this.MinimumSize = new System.Drawing.Size(240, 270);
+            this.MaximumSize = new System.Drawing.Size(240, 270);
+
 
             SqlConnection connection = new SqlConnection(connectString);
             SqlCommand command = new SqlCommand();

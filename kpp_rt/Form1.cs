@@ -131,8 +131,8 @@ WHERE ПользователиПрограммы.login = '" + textBox1.Text + "'
 
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-
-
+            this.MaximumSize = new System.Drawing.Size(200, 200);
+            this.MinimumSize = new System.Drawing.Size(200, 200);
 
 
 

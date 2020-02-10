@@ -115,7 +115,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(152, 363);
+            this.button2.Location = new System.Drawing.Point(142, 363);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 9;
@@ -187,7 +187,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(246, 408);
+            this.ClientSize = new System.Drawing.Size(224, 391);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.label6);

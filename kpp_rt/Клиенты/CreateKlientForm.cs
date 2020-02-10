@@ -19,6 +19,7 @@ namespace kpp_rt.Клиенты
             InitializeComponent();
         }
 
+
         string connectString = ConfigurationManager.ConnectionStrings["SqlBD"].ConnectionString;
         private void button2_Click(object sender, EventArgs e)
         {
@@ -116,9 +117,18 @@ namespace kpp_rt.Клиенты
 
         private void CreateKlientForm_Load(object sender, EventArgs e)
         {
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
+            this.MinimumSize = new System.Drawing.Size(240, 280);
+            this.MaximumSize = new System.Drawing.Size(240, 280);
+
             // форма по центру
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
                 (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
+
+            textBox1.MaxLength = 100;
+            textBox2.MaxLength = 15;
         }
 
         private void CreateKlientForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -126,6 +136,19 @@ namespace kpp_rt.Клиенты
             KlientForm form = new KlientForm();
             this.Hide();
             form.Show();
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // ВВОД ТОЛЬКО ЦИФР
+            if ((e.KeyChar <= 48 || e.KeyChar >= 59) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            
         }
     }
 }

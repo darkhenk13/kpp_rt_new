@@ -30,6 +30,13 @@ namespace kpp_rt.Сотрудники.Должность
 
         private void SotrudDolzForm_Load(object sender, EventArgs e)
         {
+
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
+            this.MinimumSize = new System.Drawing.Size(370, 450);
+            this.MaximumSize = new System.Drawing.Size(370, 450);
+
             // форма по центру
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
                 (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);

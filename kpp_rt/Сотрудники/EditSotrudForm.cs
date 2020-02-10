@@ -122,6 +122,13 @@ namespace kpp_rt.Сотрудники
 
         private void EditSotrudForm_Load(object sender, EventArgs e)
         {
+
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
+            this.MinimumSize = new System.Drawing.Size(240, 430);
+            this.MaximumSize = new System.Drawing.Size(240, 430);
+
             textBox4.Enabled = false;
             // форма по центру
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,

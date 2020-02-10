@@ -68,19 +68,24 @@ JOIN ПерсональныеДанныеКлиентов ON Клиенты.ID_�
 
         private void button1_Click(object sender, EventArgs e)
         {
-          for (int i = 0; i < 4; i++)
+         
+
+
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 4; i++)
             {
                 client1[i] = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[i].Value.ToString();
             }
-          
+
             CreateYrForm form = new CreateYrForm();
             form.client = client1;
             form.status_radio = status_radio1;
             form.object_table = object_table1;
             this.Hide();
             form.Show();
-
-
         }
     }
 }

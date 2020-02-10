@@ -28,8 +28,11 @@ namespace kpp_rt.Отчеты
 
         private void OtchetForm_Load(object sender, EventArgs e)
         {
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
             //400; 480
-            this.MinimumSize = new System.Drawing.Size(400, 480);
+            this.MinimumSize = new System.Drawing.Size(350, 480);
+            this.MaximumSize = new System.Drawing.Size(350, 480);
             dataGridView1.Visible = false;
             // форма по центру
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,

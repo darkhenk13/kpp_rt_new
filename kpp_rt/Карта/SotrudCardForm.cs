@@ -31,6 +31,8 @@ namespace kpp_rt.Карта
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
                 (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
 
+            this.MinimumSize = new System.Drawing.Size(960, 650);
+
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DataGridViewCellStyle style = dataGridView1.ColumnHeadersDefaultCellStyle;
             style.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -63,6 +65,18 @@ JOIN Должность ON Сотрудники.ID_Должность = Долж
 
         private void button1_Click(object sender, EventArgs e)
         {
+           
+        }
+
+        private void SotrudCardForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CreateCardForm cr = new CreateCardForm();     
+            this.Hide();
+            cr.Show();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
             //Редактирование строки
             for (int i = 0; i < 4; i++)
             {
@@ -82,7 +96,7 @@ JOIN Должность ON Сотрудники.ID_Должность = Долж
             }
             else
             {
-                
+
 
                 CreateCardForm cr = new CreateCardForm();
                 cr.new_sotrud1 = new_sotrud;
@@ -92,13 +106,6 @@ JOIN Должность ON Сотрудники.ID_Должность = Долж
                 this.Hide();
                 cr.Show();
             }
-        }
-
-        private void SotrudCardForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            CreateCardForm cr = new CreateCardForm();     
-            this.Hide();
-            cr.Show();
         }
     }
 }

@@ -29,6 +29,12 @@ namespace kpp_rt.Уровень_доступа_Карт
 
         private void CreateYrForm_Load(object sender, EventArgs e)
         {
+
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
+            this.MinimumSize = new System.Drawing.Size(260, 290);
+            this.MaximumSize = new System.Drawing.Size(260,290);
             // форма по центру
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
                 (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);

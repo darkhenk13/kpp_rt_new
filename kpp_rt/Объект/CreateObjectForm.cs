@@ -27,6 +27,13 @@ namespace kpp_rt.Объект
             // форма по центру
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
                 (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
+
+            this.MinimumSize = new System.Drawing.Size(230, 290);
+            this.MaximumSize = new System.Drawing.Size(230, 290);
+
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
         }
 
         private void button2_Click(object sender, EventArgs e)

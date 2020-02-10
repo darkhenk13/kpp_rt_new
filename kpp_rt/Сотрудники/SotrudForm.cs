@@ -26,7 +26,7 @@ namespace kpp_rt
         public string[] arr_del = new string[6];
         private void SotrudForm_Load(object sender, EventArgs e)
         {
-            
+            dataGridView1.ReadOnly = true;
 
             // форма по центру
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,

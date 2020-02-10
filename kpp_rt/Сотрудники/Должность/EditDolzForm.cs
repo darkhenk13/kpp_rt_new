@@ -31,6 +31,8 @@ namespace kpp_rt.Сотрудники.Должность
             this.MaximizeBox = false;
             this.MinimizeBox = false;
 
+            this.MinimumSize = new System.Drawing.Size(230, 140);
+            this.MaximumSize = new System.Drawing.Size(230, 140);
             /*
              CREATE TABLE Должность(
 	ID_Должность int IDENTITY (1,1),
@@ -39,7 +41,7 @@ namespace kpp_rt.Сотрудники.Должность
 );
              */
 
-          
+
 
             SqlConnection connection = new SqlConnection(Form1.connectString);
             SqlCommand command = new SqlCommand();

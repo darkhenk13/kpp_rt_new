@@ -26,6 +26,8 @@ namespace kpp_rt.Карта
 
         private void CartForm_Load(object sender, EventArgs e)
         {
+            dataGridView1.ReadOnly = true;
+            this.MinimumSize = new System.Drawing.Size(800, 500);
             // форма по центру
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
                 (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);

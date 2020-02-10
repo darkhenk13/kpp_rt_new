@@ -164,6 +164,15 @@ namespace kpp_rt
 
         private void NewSotrudForm_Load(object sender, EventArgs e)
         {
+
+
+            // форма по центру
+            this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
+                (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
+
+            this.MinimumSize = new System.Drawing.Size(230, 345);
+            this.MaximumSize = new System.Drawing.Size(230, 345);
+
             textBox1.MaxLength = 100;
             comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;

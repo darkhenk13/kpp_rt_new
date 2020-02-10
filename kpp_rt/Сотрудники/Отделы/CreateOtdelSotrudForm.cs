@@ -60,6 +60,12 @@ namespace kpp_rt.Сотрудники.Отделы
 
         private void CreateOtdelSotrudForm_Load(object sender, EventArgs e)
         {
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
+            this.MinimumSize = new System.Drawing.Size(280, 150);
+            this.MaximumSize = new System.Drawing.Size(280, 150);
+
             // форма по центру
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
                 (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);

@@ -28,6 +28,19 @@ namespace kpp_rt
 
         private void CreateAdminForm_Load(object sender, EventArgs e)
         {
+            // форма по центру
+            this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
+                (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
+
+
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
+            //270; 340
+            this.MinimumSize = new System.Drawing.Size(270, 340);
+            this.MaximumSize = new System.Drawing.Size(270, 340);
+
+
             textBox1.Text = arr[1];
         }
 

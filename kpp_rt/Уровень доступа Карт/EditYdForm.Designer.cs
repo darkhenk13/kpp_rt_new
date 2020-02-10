@@ -123,7 +123,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(237, 238);
+            this.button2.Location = new System.Drawing.Point(180, 238);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 9;
@@ -133,22 +133,22 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(225, 20);
+            this.button3.Location = new System.Drawing.Point(225, 23);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(30, 23);
             this.button3.TabIndex = 10;
-            this.button3.Text = "Выбрать";
+            this.button3.Text = "...";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(225, 70);
+            this.button4.Location = new System.Drawing.Point(225, 69);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.Size = new System.Drawing.Size(30, 23);
             this.button4.TabIndex = 11;
-            this.button4.Text = "Выбрать";
+            this.button4.Text = "...";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Visible = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
@@ -157,7 +157,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 273);
+            this.ClientSize = new System.Drawing.Size(264, 271);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);

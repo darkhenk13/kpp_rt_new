@@ -68,12 +68,18 @@ namespace kpp_rt.Уровень_доступа_Карт
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
+
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
             if (k == 1)
             {
-               
+
             }
-            else 
-            
+            else
+
             {
                 for (int i = 0; i < 4; i++)
                 {
@@ -91,6 +97,10 @@ namespace kpp_rt.Уровень_доступа_Карт
                 form.Show();
 
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
 
         }
     }

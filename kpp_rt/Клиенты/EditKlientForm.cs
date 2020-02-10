@@ -31,6 +31,12 @@ namespace kpp_rt.Клиенты
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
                 (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
 
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
+            this.MinimumSize = new System.Drawing.Size(240, 270);
+            this.MaximumSize = new System.Drawing.Size(240, 270);
+
             //for (int j = 0; j < 4; j++)
             //{
             //    MessageBox.Show(" ", arr1[j]);

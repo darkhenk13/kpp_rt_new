@@ -21,6 +21,11 @@ namespace kpp_rt
         public int k1;
         private void AdminMestoKppCreateForm_Load(object sender, EventArgs e)
         {
+            dataGridView1.ReadOnly = true;
+
+            this.MinimumSize = new System.Drawing.Size(800, 400);
+            this.MaximumSize = new System.Drawing.Size(800, 400);
+
             // форма по центру
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
                 (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2);
@@ -58,6 +63,11 @@ namespace kpp_rt
 
         private void button1_Click(object sender, EventArgs e)
         {
+           
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
             try
             {
                 k1 = 1;
@@ -72,7 +82,7 @@ namespace kpp_rt
                 form.Show();
             }
             catch
-            { 
+            {
                 MessageBox.Show("Ошибка");
                 MestoKppForm form = new MestoKppForm();
                 this.Hide();

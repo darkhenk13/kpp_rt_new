@@ -28,7 +28,7 @@ namespace kpp_rt
         public int dost;
         private void OperatorForm_Load(object sender, EventArgs e)
         {
-
+            dataGridView1.ReadOnly = true;
             //toolStripMenuItem9.FlatAppearance.BorderSize = 0;
             //toolStripMenuItem9.FlatStyle = FlatStyle.Flat;
 
@@ -745,6 +745,14 @@ WHERE ПерсональныеДанныеКлиентов.ФИО like '%" + too
         private void toolStripMenuItem9_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dataGridView1_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            if (e.StateChanged == DataGridViewElementStates.Displayed && e.Row.Index == 1)
+            {
+                e.Row.Cells[0].ReadOnly = true;
+            }
         }
     }
 }

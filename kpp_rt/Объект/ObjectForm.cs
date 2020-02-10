@@ -24,6 +24,9 @@ namespace kpp_rt.Объект
 
         private void ObjectForm_Load(object sender, EventArgs e)
         {
+            dataGridView1.ReadOnly = true;
+
+            this.MinimumSize = new System.Drawing.Size(700, 450);
 
             // форма по центру
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,

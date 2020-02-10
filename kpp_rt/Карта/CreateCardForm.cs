@@ -31,6 +31,12 @@ namespace kpp_rt.Карта
 
         private void CreateCardForm_Load(object sender, EventArgs e)
         {
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
+            this.MinimumSize = new System.Drawing.Size(300, 200);
+            this.MaximumSize = new System.Drawing.Size(300, 200);
+
             textBox1.Enabled = false;
             textBox2.Enabled = false;
             // форма по центру

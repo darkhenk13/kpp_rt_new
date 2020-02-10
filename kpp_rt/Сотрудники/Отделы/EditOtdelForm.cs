@@ -72,11 +72,11 @@ namespace kpp_rt.Сотрудники.Отделы
 
         private void EditOtdelForm_Load(object sender, EventArgs e)
         {
-            /*CREATE TABLE Отделы(
-	ID_Отдела int IDENTITY (1,1),
-	Отдел nvarchar(100) NULL,
-	PRIMARY KEY (ID_Отдела)
-);*/
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
+            this.MinimumSize = new System.Drawing.Size(240, 140);
+            this.MaximumSize = new System.Drawing.Size(240, 140);
 
             // форма по центру
             this.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2,
